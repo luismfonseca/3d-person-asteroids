@@ -1,0 +1,19 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\gameCamera.cs">
+    <Files>
+      <File FileName="Assets\Scripts\xa.cs" Line="42" Column="21" />
+      <File FileName="Assets\Scripts\Player.cs" Line="34" Column="31" />
+      <File FileName="Assets\Orthello\Standard Assets\OT\Graphics\Sprites\OTAnimatingSprite.cs" Line="4" Column="2" />
+      <File FileName="Assets\Scripts\playerspaceship.cs" Line="23" Column="60" />
+      <File FileName="Assets\Scripts\rockBehaviour.cs" Line="41" Column="57" />
+      <File FileName="Assets\Orthello\Examples\4 - Follow Target View\CExample4.cs" Line="37" Column="1" />
+      <File FileName="Assets\Scripts\gameCamera.cs" Line="16" Column="53" />
+      <File FileName="Assets\gameCamera.cs" Line="4" Column="24" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
