@@ -51,6 +51,7 @@ public class xa : MonoBehaviour {
 
 	public void Update() 
 	{
+		shooting = isShoot;
 		// these are false unless one of keys is pressed
 		isLeft = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
 		isRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);

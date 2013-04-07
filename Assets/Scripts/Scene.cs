@@ -5,7 +5,6 @@ public class Scene : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-	 
 	}
 	
 	// Update is called once per frame
@@ -19,14 +18,16 @@ public class Scene : MonoBehaviour {
 		if(OT.objectCount <= 12){
 			OTSprite sprite = RandomBlock(OT.view.worldRect, 0.6f, 1.8f, null);        
 			sprite.transform.parent = this.transform;
-		}	
+		}
+	
+		
 	}
 	
 	
 	OTSprite RandomBlock(Rect r, float min, float max, OTObject o)
     {
         // Determine random 1-3 asteroid type
-        int t = 1 + (int)Mathf.Floor(Random.value * 4);
+        int t = 1 + (int)Mathf.Floor(Random.value * 5);
         // Determine random size modifier (min-max)
         float s = min + Random.value * (max - min);
 		OTSprite sprite = null;
@@ -40,6 +41,8 @@ public class Scene : MonoBehaviour {
             case 3: sprite = OT.CreateSprite("asteroid3");
                 break;
 			case 4: sprite = OT.CreateSprite("asteroid4");
+                break;
+			case 5: sprite = OT.CreateSprite("enemy");
                 break;
         }
         if (sprite != null)

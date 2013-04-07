@@ -1,37 +1,41 @@
 using UnityEngine;
 using System.Collections;
 
-public class rockBehaviour : MonoBehaviour {
-	
+public class EnemyShip : MonoBehaviour{
 	private Vector2 position;
-	private float direction;
 	private float angle;
 	private OTSprite sprite;
-	private Transform thisTransform;
 	private Vector2 speed;
 	private Vector3 rotationSpeed;
+	private float reloadTime = 2f;
 	
 	void Awake() 
 	{
-		thisTransform = transform;
-
 	}
 	
 	
 	// Use this for initialization
 	void Start () {
-		direction = Random.value < 0.5 ? -1 : 1;
 		sprite = GetComponent<OTSprite>();
 		angle = Random.value * 360f;
 		position = sprite.position;
 		speed = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle))* (Random.value+0.5f) * 2;
-		rotationSpeed = new Vector3(0, 0, Random.value*60);
+		sprite.rotation = Random.value*360f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		float deltaTime = Time.deltaTime;
-		thisTransform.Rotate(rotationSpeed * deltaTime,direction);
+		reloadTime -= deltaTime;
+		if(reloadTime < 0){
+			reloadTime += 2f;
+			OTSprite bullet = OT.CreateSprite("enemyBullet");
+			bullet.transform.parent = transform.parent;
+			bullet.transform.localPosition = transform.localPosition;
+			bullet.RotateTowards(playerspaceship.originalPosition);
+
+			
+		}
 		
 		position += speed * deltaTime;
 		this.transform.localPosition = position;
@@ -50,3 +54,4 @@ public class rockBehaviour : MonoBehaviour {
 		
 	}
 }
+

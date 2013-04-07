@@ -4,7 +4,8 @@ using System.Collections;
 public class playerspaceship : MonoBehaviour {
 	
 	public static Vector2 speed;
-	private OTSprite sprite;
+	public OTSprite sprite;
+	
 	public static float rotation;
 	public static float deltaRotation;
 	public static Vector2 position;

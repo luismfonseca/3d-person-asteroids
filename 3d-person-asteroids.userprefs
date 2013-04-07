@@ -1,6 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\EnemyShip.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Scene.cs" Line="5" Column="1" />
+      <File FileName="Assets\Scripts\xa.cs" Line="54" Column="22" />
+      <File FileName="Assets\Scripts\EnemyShip.cs" Line="35" Column="57" />
+      <File FileName="Assets\Scripts\EnemyBullet.cs" Line="26" Column="1" />
+      <File FileName="Assets\Scripts\playerspaceship.cs" Line="7" Column="8" />
+      <File FileName="Assets\Scripts\rockBehaviour.cs" Line="9" Column="18" />
+      <File FileName="Assets\Orthello\Examples\3 - Shooting Asteroids\CExample3.cs" Line="147" Column="26" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
