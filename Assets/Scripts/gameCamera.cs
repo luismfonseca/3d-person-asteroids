@@ -18,6 +18,9 @@ public class gameCamera : MonoBehaviour {
 		MonoBehaviour scene = gameObject.GetComponent<MonoBehaviour>();
 				scene.transform.localEulerAngles = new Vector3(0,0,-playerspaceship.rotation);
 
-	
 	}
 }
+	
+	
+	
+

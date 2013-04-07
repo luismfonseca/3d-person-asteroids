@@ -8,7 +8,8 @@ public class rockBehaviour : MonoBehaviour {
 	private float angle;
 	private OTSprite sprite;
 	private Transform thisTransform;
-	private Vector2 move;
+	private Vector2 speed;
+	private Vector3 rotationSpeed;
 	
 	void Awake() 
 	{
@@ -23,14 +24,16 @@ public class rockBehaviour : MonoBehaviour {
 		sprite = GetComponent<OTSprite>();
 		angle = Random.value * 360f;
 		position = sprite.position;
-		move = new Vector2(.1f * Mathf.Cos(angle), .1f * Mathf.Sin(angle));
+		speed = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle))* (Random.value+0.5f) * 2;
+		rotationSpeed = new Vector3(0, 0, Random.value*60);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		thisTransform.Rotate(new Vector3(0, 0, 1), direction * 1f);
+		float deltaTime = Time.deltaTime;
+		thisTransform.Rotate(rotationSpeed * deltaTime);
 		
-		position += move;
+		position += speed * deltaTime;
 		this.transform.localPosition = position;
 		//thisTransform.TransformPoint(.1f * Mathf.Cos(angle), .1f * Mathf.Sin(angle), 0);
 		
