@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour{
 	void Start () {
 		sprite = GetComponent<OTSprite>();
 		lifeTime = 4;
+		sprite.onCollision = OnCollision; 
 	}
 	
 	// Update is called once per frame
@@ -50,7 +51,16 @@ public class Bullet : MonoBehaviour{
 	
 	public void OnCollision(OTObject owner)
     {
-			print("collision!");	
+		OTSprite colisionSprite = owner.collisionObject as OTSprite;
+		if(colisionSprite.protoType == "enemy"){
+			OTSprite explosion = OT.CreateSprite("explosion");
+			explosion.transform.parent = colisionSprite.transform.parent;
+			explosion.transform.localPosition = colisionSprite.transform.localPosition;
+			OT.DestroyObject(colisionSprite);
+			OT.DestroyObject(owner);	
+		} //else if(sprite.protoType.StartsWith("asteroid")){
+		//	OT.DestroyObject(owner);	
+		//}
 		
 	}
 	
