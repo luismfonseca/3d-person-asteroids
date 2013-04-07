@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyBullet : MonoBehaviour{
+public class Bullet : MonoBehaviour{
 	private OTSprite sprite;
 	private float speed = 10;
 	private float lifeTime;
@@ -23,7 +23,7 @@ public class EnemyBullet : MonoBehaviour{
 	void Update () {
 		if(lifeTime >= 4){
 			movedirection = sprite.yVector;
-			sprite.rotation -= playerspaceship.rotation;
+			sprite.rotation = 0;
 		}
 		float deltaTime = Time.deltaTime;
 		lifeTime -= deltaTime;
@@ -48,6 +48,13 @@ public class EnemyBullet : MonoBehaviour{
 		
 	}
 	
+	public void OnCollision(OTObject owner)
+    {
+			print("collision!");	
+		
+	}
+	
 	
 }
+
 

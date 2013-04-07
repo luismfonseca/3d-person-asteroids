@@ -19,6 +19,12 @@ public class Scene : MonoBehaviour {
 			OTSprite sprite = RandomBlock(OT.view.worldRect, 0.6f, 1.8f, null);        
 			sprite.transform.parent = this.transform;
 		}
+		if(xa.isShoot && !xa.shooting){
+			OTSprite bullet = OT.CreateSprite("bullet");
+			bullet.transform.parent = transform;
+			bullet.transform.localPosition = playerspaceship.originalPosition;
+			bullet.rotation = playerspaceship.rotation;	
+		}
 	
 		
 	}
@@ -62,5 +68,8 @@ public class Scene : MonoBehaviour {
         }
         return sprite as OTSprite;
     }
+	
+	
+	
 	
 }
