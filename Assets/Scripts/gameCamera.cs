@@ -12,10 +12,12 @@ public class gameCamera : MonoBehaviour {
 	void Update () {
 		
 		//return;
-		// apply rotation on everything
-		MonoBehaviour[] components = gameObject.GetComponentsInChildren<MonoBehaviour>();
-		
-		foreach(var component in components) {
-		}
+
+		//apply rotation to the "root" scene (the scene that includes the spaceship)
+		//without changing the tranform origin,
+		MonoBehaviour scene = gameObject.GetComponent<MonoBehaviour>();
+				scene.transform.localEulerAngles = new Vector3(0,0,-playerspaceship.rotation);
+
+	
 	}
 }

@@ -57,7 +57,7 @@ public class Player : MonoBehaviour {
 		
 		moveDirX = 0;
 		moveDirY = 0;
-		
+		print(xa.isLeft);
 		// move left
 		if(xa.isLeft && !xa.blockedLeft && !xa.shooting) 
 		{

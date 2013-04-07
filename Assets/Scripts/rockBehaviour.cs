@@ -7,9 +7,13 @@ public class rockBehaviour : MonoBehaviour {
 	private float direction;
 	private float angle;
 	private OTSprite sprite;
+	private Transform thisTransform;
+	private Vector2 move;
 	
 	void Awake() 
-	{Y
+	{
+		thisTransform = transform;
+
 	}
 	
 	
@@ -19,27 +23,27 @@ public class rockBehaviour : MonoBehaviour {
 		sprite = GetComponent<OTSprite>();
 		angle = Random.value * 360f;
 		position = sprite.position;
+		move = new Vector2(.1f * Mathf.Cos(angle), .1f * Mathf.Sin(angle));
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		thisTransform.Rotate(new Vector3(0, 0, 1), direction * 1f);
 		
-		position += new Vector2(.1f * Mathf.Cos(angle),
-								.1f * Mathf.Sin(angle));
-		sprite.position = position;
+		position += move;
+		this.transform.localPosition = position;
 		//thisTransform.TransformPoint(.1f * Mathf.Cos(angle), .1f * Mathf.Sin(angle), 0);
 		
 		
 		// check borders
-		if (sprite.position.x > 9f)
-			sprite.position = new Vector2(-9f, sprite.position.y);
-		else if (sprite.position.x < -9f)
-			sprite.position = new Vector2(9f, sprite.position.y);
-		else if (sprite.position.y > 9f)
-			sprite.position = new Vector2(sprite.position.x, -9f);
-		else if (sprite.position.y < -9f)
-			sprite.position = new Vector2(sprite.position.x, 9f);
+		if (position.x > 9f)
+			position = new Vector2(-9f, position.y);
+		else if (position.x < -9f)
+			position = new Vector2(9f, position.y);
+		else if (position.y > 9f)
+			position = new Vector2(position.x, -9f);
+		else if (position.y < -9f)
+			position = new Vector2(position.x, 9f);
 		
 	}
 }
