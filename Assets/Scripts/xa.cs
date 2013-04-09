@@ -27,12 +27,15 @@ public class xa : MonoBehaviour {
 	public static bool isUp;
 	public static bool isDown;
 	public static bool isShoot;
+	public static bool isPause;
 
 	public static bool alive;
 	public static bool onLadder;
 	public static bool onRope;
 	public static bool falling;
 	public static bool shooting;
+	public static bool paused;
+	public static bool pausePressed;
 
 	public static int facingDir = 1; // 1 = left, 2 = right, 3 = up, 4 = down
 	public enum anim { None, WalkLeft, WalkRight, RopeLeft, RopeRight, Climb, ClimbStop, StandLeft, StandRight, HangLeft, HangRight, FallLeft, FallRight , ShootLeft, ShootRight }
@@ -52,11 +55,14 @@ public class xa : MonoBehaviour {
 	public void Update() 
 	{
 		shooting = isShoot;
+		pausePressed = isPause;
 		// these are false unless one of keys is pressed
 		isLeft = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
 		isRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
 		isUp = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
 		isDown = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
 		isShoot = Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.E);
+		isPause = Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.Escape);
+
 	}
 }

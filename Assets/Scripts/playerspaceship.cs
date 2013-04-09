@@ -27,6 +27,7 @@ public class playerspaceship : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(xa.paused){ return;}
 		float deltaTime = Time.deltaTime;
 		// rotation
 		deltaRotation = xa.isLeft ? 100f *deltaTime: xa.isRight ? -100f *deltaTime: 0;

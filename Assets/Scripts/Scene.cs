@@ -9,6 +9,7 @@ public class Scene : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(xa.paused){ return;}
 		//the scene position should be the opposite of the spaceship
 		//the rotation should be done on the "root" scene (in game Camera)
 		//because the origin position changes

@@ -5,6 +5,7 @@ public class EnemyBullet : MonoBehaviour{
 	private OTSprite sprite;
 	private float speed = 10;
 	private float lifeTime;
+	public static float bulletLifeTime = 2;
 	private Vector2 movedirection;
 
 	
@@ -16,12 +17,13 @@ public class EnemyBullet : MonoBehaviour{
 	// Use this for initialization
 	void Start () {
 		sprite = GetComponent<OTSprite>();
-		lifeTime = 4;
+		lifeTime = bulletLifeTime;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(lifeTime >= 4){
+		if(xa.paused){ return;}
+		if(lifeTime >= bulletLifeTime){
 			movedirection = sprite.yVector;
 			sprite.rotation -= playerspaceship.rotation;
 		}
@@ -29,7 +31,7 @@ public class EnemyBullet : MonoBehaviour{
 		lifeTime -= deltaTime;
 		if(lifeTime < 0){
 			OT.DestroyObject(sprite);
-			lifeTime = 4;
+			lifeTime = bulletLifeTime;
 			return;
 		}
 		sprite.position += movedirection * speed * deltaTime;

@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour{
 	private OTSprite sprite;
 	private float speed = 10;
 	private float lifeTime;
+	public static float bulletLifeTime = 1;
 	private Vector2 movedirection;
 
 	
@@ -16,13 +17,14 @@ public class Bullet : MonoBehaviour{
 	// Use this for initialization
 	void Start () {
 		sprite = GetComponent<OTSprite>();
-		lifeTime = 4;
+		lifeTime = bulletLifeTime;
 		sprite.onCollision = OnCollision; 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(lifeTime >= 4){
+		if(xa.paused){ return;}
+		if(lifeTime >= bulletLifeTime){
 			movedirection = sprite.yVector;
 			sprite.rotation = 0;
 		}
@@ -30,7 +32,7 @@ public class Bullet : MonoBehaviour{
 		lifeTime -= deltaTime;
 		if(lifeTime < 0){
 			OT.DestroyObject(sprite);
-			lifeTime = 4;
+			lifeTime = bulletLifeTime;
 			return;
 		}
 		sprite.position += movedirection * speed * deltaTime;
