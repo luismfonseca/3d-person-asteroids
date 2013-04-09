@@ -16,7 +16,7 @@ public class gameCamera : MonoBehaviour {
 		//apply rotation to the "root" scene (the scene that includes the spaceship)
 		//without changing the tranform origin,
 		MonoBehaviour scene = gameObject.GetComponent<MonoBehaviour>();
-				scene.transform.localEulerAngles = new Vector3(0, 0, -playerspaceship.rotation);
+		scene.transform.localEulerAngles = new Vector3(0, 0, -playerspaceship.rotation);
 		if(xa.isPause && !xa.pausePressed){
 			xa.paused = !xa.paused;
 			Time.timeScale = (xa.paused) ? 0f : 1f;

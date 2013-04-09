@@ -11,14 +11,18 @@ public class playerspaceship : MonoBehaviour {
 	public static Vector2 position;
 	public static Vector2 originalPosition;
 	
-	public float deadSince;
+	public float deadSince = 0f;
+	
+	private bool isDead() {
+		return (deadSince == 0f);
+	}
 	
 	void Awake() 
 	{
 	}
 	
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		sprite = GetComponent<OTSprite>();
 		originalPosition = Vector2.zero;
 		speed = Vector2.zero;
@@ -27,15 +31,22 @@ public class playerspaceship : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
 	{
+		if (!isDead())
+			return;
+		
 		if (other.name.StartsWith("bullet")) // our bullets dont do nothing
 			return;
+		else if (other.name.StartsWith("enemyBullet"))
+		{
+			Destroy(other.GetComponent<MonoBehaviour>());
+		}
 		
 		sprite.visible = false;
 		deadSince = Time.timeSinceLevelLoad;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 		if (xa.paused)
 		{
 			return;
