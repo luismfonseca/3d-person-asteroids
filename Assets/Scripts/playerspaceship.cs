@@ -30,15 +30,19 @@ public class playerspaceship : MonoBehaviour {
 		if(xa.paused){ return;}
 		float deltaTime = Time.deltaTime;
 		// rotation
-		deltaRotation = xa.isLeft ? 100f *deltaTime: xa.isRight ? -100f *deltaTime: 0;
+		deltaRotation = xa.isLeft ? 160f *deltaTime: xa.isRight ? -160f *deltaTime: 0;
 		rotation += deltaRotation;
-		if(rotation > 360) rotation-=360;
-		else if(rotation < 0) rotation+=360;
+		if(rotation > 360) {
+			rotation -= 360;
+		}
+		else if(rotation < 0) {
+			rotation += 360;
+		}
 
 		// movement
 		if (xa.isUp) { // increase spaceship speed
-			speed.x += 5f * Mathf.Cos((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
-			speed.y += 5f * Mathf.Sin((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
+			speed.x += 9f * Mathf.Cos((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
+			speed.y += 9f * Mathf.Sin((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
 		}
 		
 		speed.x *= .99f;
