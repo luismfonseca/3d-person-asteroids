@@ -14,9 +14,23 @@ public class rockBehaviour : MonoBehaviour {
 	void Awake() 
 	{
 		thisTransform = transform;
-
 	}
 	
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.name.StartsWith("asteroid")) // other asteroids don't affect us
+			return;
+		
+		if (other.name.StartsWith("enemy"))
+			return;
+		
+		if (other.name.StartsWith("spaceship")) {
+			if (playerspaceship.isDead())
+				return;
+		}
+		
+		Scene.SplitAsteroids(this.GetComponent<OTSprite>());
+	}
 	
 	// Use this for initialization
 	void Start () {

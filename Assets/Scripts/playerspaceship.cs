@@ -11,10 +11,10 @@ public class playerspaceship : MonoBehaviour {
 	public static Vector2 position;
 	public static Vector2 originalPosition;
 	
-	public float deadSince = 0f;
+	public static float deadSince;
 	
-	private bool isDead() {
-		return (deadSince == 0f);
+	public static bool isDead() {
+		return (deadSince != 0f);
 	}
 	
 	void Awake() 
@@ -27,6 +27,7 @@ public class playerspaceship : MonoBehaviour {
 		originalPosition = Vector2.zero;
 		speed = Vector2.zero;
 		rotation = 0f;
+		deadSince = 0f;
 	}
 	
 	void OnTriggerEnter(Collider other)
@@ -36,9 +37,14 @@ public class playerspaceship : MonoBehaviour {
 		
 		if (other.name.StartsWith("bullet")) // our bullets dont do nothing
 			return;
+		
 		else if (other.name.StartsWith("enemyBullet"))
 		{
 			Destroy(other.GetComponent<MonoBehaviour>());
+		}
+		
+		if (other.name.StartsWith("asteroid"))
+		{
 		}
 		
 		sprite.visible = false;
@@ -53,7 +59,7 @@ public class playerspaceship : MonoBehaviour {
 		}
 		float deltaTime = Time.deltaTime;
 		
-		if (deadSince == 0) // still alive?
+		if (!isDead()) // still alive?
 		{
 			// rotation
 			deltaRotation = xa.isLeft ? 160f *deltaTime: xa.isRight ? -160f *deltaTime: 0;

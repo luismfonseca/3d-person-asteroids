@@ -3,9 +3,9 @@ using System.Collections;
 
 public class EnemyBullet : MonoBehaviour{
 	private OTSprite sprite;
-	private float speed = 10;
+	private float speed = 13;
 	private float lifeTime;
-	public static float bulletLifeTime = 2;
+	public static float bulletLifeTime = 1;
 	private Vector2 movedirection;
 
 	

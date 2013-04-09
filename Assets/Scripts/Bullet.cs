@@ -7,12 +7,10 @@ public class Bullet : MonoBehaviour{
 	private float lifeTime;
 	public static float bulletLifeTime = 1f;
 	private Vector2 movedirection;
-
 	
 	void Awake() 
 	{
 	}
-	
 	
 	// Use this for initialization
 	void Start () {

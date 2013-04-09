@@ -9,7 +9,9 @@ public class Scene : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(xa.paused){ return;}
+		if(xa.paused) {
+			return;
+		}
 		//the scene position should be the opposite of the spaceship
 		//the rotation should be done on the "root" scene (in game Camera)
 		//because the origin position changes
@@ -26,10 +28,27 @@ public class Scene : MonoBehaviour {
 			bullet.transform.localPosition = playerspaceship.originalPosition;
 			bullet.rotation = playerspaceship.rotation;	
 		}
-	
-		
 	}
 	
+	public static void SplitAsteroids(OTSprite original) {
+		if (original.size.x >= .5f) {
+			var asteroid1 = OT.CreateSprite(getRandomAsteroidSprite());
+			var asteroid2 = OT.CreateSprite(getRandomAsteroidSprite());
+			
+			asteroid1.transform.parent = original.transform.parent;
+			asteroid1.transform.localPosition = original.transform.localPosition;
+			asteroid2.transform.parent = original.transform.parent;
+			asteroid2.transform.localPosition = original.transform.localPosition;
+			asteroid1.size = original.size / 2;
+			asteroid2.size = original.size / 2;
+		}
+		OT.DestroyObject(original);
+	}
+	
+	private static string getRandomAsteroidSprite()
+	{
+		return "asteroid1";//;  + (1 + 3 * Random.value);
+	}
 	
 	OTSprite RandomBlock(Rect r, float min, float max, OTObject o)
     {
