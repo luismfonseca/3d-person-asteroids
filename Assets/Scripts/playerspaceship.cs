@@ -11,6 +11,8 @@ public class playerspaceship : MonoBehaviour {
 	public static Vector2 position;
 	public static Vector2 originalPosition;
 	
+	public float deadSince;
+	
 	void Awake() 
 	{
 	}
@@ -21,32 +23,50 @@ public class playerspaceship : MonoBehaviour {
 		originalPosition = Vector2.zero;
 		speed = Vector2.zero;
 		rotation = 0f;
+	}
+	
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.name.StartsWith("bullet")) // our bullets dont do nothing
+			return;
 		
-		
+		sprite.visible = false;
+		deadSince = Time.timeSinceLevelLoad;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(xa.paused){ return;}
+		if (xa.paused)
+		{
+			return;
+		}
 		float deltaTime = Time.deltaTime;
-		// rotation
-		deltaRotation = xa.isLeft ? 160f *deltaTime: xa.isRight ? -160f *deltaTime: 0;
-		rotation += deltaRotation;
-		if(rotation > 360) {
-			rotation -= 360;
+		
+		if (deadSince == 0) // still alive?
+		{
+			// rotation
+			deltaRotation = xa.isLeft ? 160f *deltaTime: xa.isRight ? -160f *deltaTime: 0;
+			rotation += deltaRotation;
+			if(rotation > 360) {
+				rotation -= 360;
+			}
+			else if(rotation < 0) {
+				rotation += 360;
+			}
+	
+			// movement
+			if (xa.isUp) { // increase spaceship speed
+				speed.x += 9f * Mathf.Cos((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
+				speed.y += 9f * Mathf.Sin((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
+			}
 		}
-		else if(rotation < 0) {
-			rotation += 360;
-		}
-
-		// movement
-		if (xa.isUp) { // increase spaceship speed
-			speed.x += 9f * Mathf.Cos((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
-			speed.y += 9f * Mathf.Sin((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
+		else if (Time.timeSinceLevelLoad - deadSince > 2)
+		{
+			Application.LoadLevel(Application.loadedLevel);
 		}
 		
-		speed.x *= .99f;
-		speed.y *= .99f;
+		speed.x *= .98f;
+		speed.y *= .98f;
 
 		if (originalPosition.x > 9f)
 			originalPosition = new Vector2(-9f, originalPosition.y);
