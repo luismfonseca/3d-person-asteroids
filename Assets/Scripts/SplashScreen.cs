@@ -12,8 +12,7 @@ public class SplashScreen : MonoBehaviour{
         style.normal.textColor = new Color(0, 0, 0);
         style.hover.textColor = new Color(0f, 256f, 256f);
 
-        //style.font = (Font)Resources.Load("Vector Battle");
-		style.fontSize = 20;
+        style.font = (Font)Resources.Load("Vector Battle");
 		
 		StartCoroutine ("DisplayScene"); 
 	}
@@ -27,11 +26,13 @@ public class SplashScreen : MonoBehaviour{
 	void OnGUI(){
 		int width = Screen.width;
 		int height = Screen.height;
-		Rect labelRect = new Rect (width/2, (height/4), 0, (height/2));
+		Rect labelRect = new Rect (width/16, (height/2), 0, (height/2));
+		style.fontSize = width/32;
+
 		
 		string text = 
 			@"Omar Alejandro Castillo de Castro
-Luís Miguel Guimarães Pimentel Fonseca
+Luis Miguel Guimaraes Pimentel Fonseca
 Witold Zgrabka
 
 presents:";
@@ -42,4 +43,3 @@ presents:";
 	
 	
 }
-
