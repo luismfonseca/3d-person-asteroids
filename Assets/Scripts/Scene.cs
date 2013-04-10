@@ -19,7 +19,7 @@ public class Scene : MonoBehaviour {
 		this.transform.localPosition = -playerspaceship.originalPosition;
 		
 		//creates ateroids if its theres not enought sprites
-		if(OT.objectCount <= 12){
+		if(OT.objectCount <= 5){
 			OTSprite sprite = RandomBlock(OT.view.worldRect, 0.6f, 1.8f, null);        
 			sprite.transform.parent = this.transform;
 		}
