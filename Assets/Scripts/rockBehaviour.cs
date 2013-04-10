@@ -3,7 +3,6 @@ using System.Collections;
 
 public class rockBehaviour : MonoBehaviour {
 	
-	private Vector2 position;
 	private float direction;
 	private float angle;
 	private OTSprite sprite;
@@ -34,7 +33,6 @@ public class rockBehaviour : MonoBehaviour {
 		direction = Random.value < 0.5 ? -1 : 1;
 		sprite = GetComponent<OTSprite>();
 		angle = Random.value * 360f;
-		position = sprite.position;
 		speed = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle))* (Random.value+0.5f) * 2;
 		rotationSpeed = new Vector3(0, 0, Random.value*60);
 	}
@@ -44,20 +42,24 @@ public class rockBehaviour : MonoBehaviour {
 		float deltaTime = Time.deltaTime;
 		thisTransform.Rotate(rotationSpeed * deltaTime,direction);
 		
-		position += speed * deltaTime;
-		sprite.transform.localPosition = position;
+		Vector2 newPosition = new Vector2(
+			sprite.transform.localPosition.x + speed.x * deltaTime,
+			sprite.transform.localPosition.y + speed.y * deltaTime);
 		//thisTransform.TransformPoint(.1f * Mathf.Cos(angle), .1f * Mathf.Sin(angle), 0);
 		
 		
 		// check borders
-		if (position.x > 9f)
-			position = new Vector2(-9f, position.y);
-		else if (position.x < -9f)
-			position = new Vector2(9f, position.y);
-		else if (position.y > 9f)
-			position = new Vector2(position.x, -9f);
-		else if (position.y < -9f)
-			position = new Vector2(position.x, 9f);
+		if (newPosition.x > 9f)
+			newPosition.Set(-9f, newPosition.y);
+		else if (newPosition.x < -9f)
+			newPosition.Set(9f, newPosition.y);
+		else if (newPosition.y > 9f)
+			newPosition.Set(newPosition.x, -9f);
+		else if (newPosition.y < -9f)
+			newPosition.Set(newPosition.x, 9f);
+		
+		sprite.transform.localPosition = newPosition;
+
 		
 	}
 }
