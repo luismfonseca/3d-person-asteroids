@@ -5,6 +5,7 @@ public class Scene : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		
 	}
 	
 	// Update is called once per frame
@@ -26,7 +27,10 @@ public class Scene : MonoBehaviour {
 			OTSprite bullet = OT.CreateSprite("bullet");
 			bullet.transform.parent = transform;
 			bullet.transform.localPosition = playerspaceship.originalPosition;
-			bullet.rotation = playerspaceship.rotation;	
+			Bullet bulletScript = bullet.GetComponent<Bullet>();
+			if(bulletScript != null){
+				bulletScript.initialize();
+			}
 		}
 	}
 	

@@ -16,21 +16,31 @@ public class Bullet : MonoBehaviour{
 	void Start () {
 		sprite = GetComponent<OTSprite>();
 		lifeTime = bulletLifeTime;
+		playerspaceship.sprite.rotation = playerspaceship.rotation;
+		movedirection = playerspaceship.sprite.yVector;
+		playerspaceship.sprite.rotation = 0;
+		sprite.position += movedirection/2;
+
 		sprite.onCollision = OnCollision; 
+	}
+	
+	public void initialize(){
+		lifeTime = bulletLifeTime;
+		if(sprite == null) return;
+		sprite.rotation = playerspaceship.rotation;
+		movedirection = sprite.yVector;
+		sprite.rotation = 0;
+		sprite.position += movedirection/2;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(xa.paused){ return;}
-		if(lifeTime >= bulletLifeTime){
-			movedirection = sprite.yVector;
-			sprite.rotation = 0;
-		}
 		float deltaTime = Time.deltaTime;
 		lifeTime -= deltaTime;
 		if(lifeTime < 0){
 			OT.DestroyObject(sprite);
-			lifeTime = bulletLifeTime;
 			return;
 		}
 		sprite.position += movedirection * speed * deltaTime;

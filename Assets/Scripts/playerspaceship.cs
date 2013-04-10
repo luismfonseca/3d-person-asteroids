@@ -4,7 +4,7 @@ using System.Collections;
 public class playerspaceship : MonoBehaviour {
 	
 	public static Vector2 speed;
-	public OTSprite sprite;
+	public static OTSprite sprite;
 	
 	public static float rotation;
 	public static float deltaRotation;
@@ -32,7 +32,7 @@ public class playerspaceship : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if (!isDead())
+		if (isDead())
 			return;
 		
 		if (other.name.StartsWith("bullet")) // our bullets dont do nothing
@@ -73,6 +73,7 @@ public class playerspaceship : MonoBehaviour {
 	
 			// movement
 			if (xa.isUp) { // increase spaceship speed
+				
 				speed.x += 9f * Mathf.Cos((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
 				speed.y += 9f * Mathf.Sin((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
 			}
