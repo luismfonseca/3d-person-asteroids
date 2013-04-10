@@ -36,20 +36,20 @@ public class EnemyShip : MonoBehaviour{
 			bullet.RotateTowards(playerspaceship.originalPosition);
 		}
 		
-		position += speed * deltaTime;
-		this.transform.localPosition = position;
-		//thisTransform.TransformPoint(.1f * Mathf.Cos(angle), .1f * Mathf.Sin(angle), 0);
-		
+		Vector2 newPosition = sprite.transform.localPosition;
+		newPosition += speed * deltaTime;	
 		
 		// check borders
-		if (position.x > 9f)
-			position = new Vector2(-9f, position.y);
-		else if (position.x < -9f)
-			position = new Vector2(9f, position.y);
-		else if (position.y > 9f)
-			position = new Vector2(position.x, -9f);
-		else if (position.y < -9f)
-			position = new Vector2(position.x, 9f);
+		if (newPosition.x > 9f)
+			newPosition.Set(-9f, newPosition.y);
+		else if (newPosition.x < -9f)
+			newPosition.Set(9f, newPosition.y);
+		else if (newPosition.y > 9f)
+			newPosition.Set(newPosition.x, -9f);
+		else if (newPosition.y < -9f)
+			newPosition.Set(newPosition.x, 9f);
+		
+		sprite.transform.localPosition = newPosition;
 	}
 	
 	void OnTriggerEnter(Collider other)

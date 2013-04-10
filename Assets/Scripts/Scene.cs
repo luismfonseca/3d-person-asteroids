@@ -6,6 +6,10 @@ public class Scene : MonoBehaviour {
 	public static int lifes = 3;
 	public static int points;
 	public static bool GameIsOver = false;
+	public static int numberOfAsteroids = 0;
+	public static float enemyAppearInterval = 15f;
+	public float timeForNewEnemy = enemyAppearInterval;
+
 	public GUIStyle style = new GUIStyle();
 	public GUIStyle styleGameOver = new GUIStyle();
 	
@@ -17,6 +21,8 @@ public class Scene : MonoBehaviour {
 			GameIsOver = false;
 		}
 		lifes--;
+		numberOfAsteroids = 0;
+		timeForNewEnemy = enemyAppearInterval;
 	}
 	
 	void OnGUI() {
@@ -46,16 +52,22 @@ public class Scene : MonoBehaviour {
 		//the rotation should be done on the "root" scene (in game Camera)
 		//because the origin position changes
 		this.transform.localPosition = -playerspaceship.originalPosition;
-		
+		timeForNewEnemy -= Time.deltaTime;
+		if(timeForNewEnemy < 0){
+			timeForNewEnemy += enemyAppearInterval;
+			OTSprite sprite = RandomBlock(OT.view.worldRect, 0.9f, 1.8f, null,"enemy");
+			sprite.transform.parent = this.transform;
+		}
 		//creates ateroids if its theres not enought sprites
-		if(OT.objectCount <= 1){
+		if(numberOfAsteroids < 1){
 			//numRemainingWaves--
 			//if(numRemainingWaves == 0){
 			//	//you win		
 			//}
 			for(int i=0;i< 5;++i){
-				OTSprite sprite = RandomBlock(OT.view.worldRect, 0.9f, 1.8f, null);
+				OTSprite sprite = RandomBlock(OT.view.worldRect, 0.9f, 1.8f, null,getRandomAsteroidSprite());
 				sprite.transform.parent = this.transform;
+				numberOfAsteroids++;
 			}
 		}
 		if(xa.isShoot && !xa.shooting && !playerspaceship.isDead()){
@@ -77,7 +89,9 @@ public class Scene : MonoBehaviour {
 			asteroid2.transform.localPosition = original.transform.localPosition;
 			original.size = original.size / 2;
 			asteroid2.size = original.size;
+			numberOfAsteroids++;
 		} else {
+			numberOfAsteroids--;
 			OT.DestroyObject(original);
 		}
 	}
@@ -87,27 +101,11 @@ public class Scene : MonoBehaviour {
 		return "asteroid" + (int)(1 + 3 * Random.value);;
 	}
 	
-	OTSprite RandomBlock(Rect r, float min, float max, OTObject o)
+	OTSprite RandomBlock(Rect r, float min, float max, OTObject o,string property)
     {
-        // Determine random 1-3 asteroid type
-        int type = 1 + (int) (Random.value * 5);
         // Determine random size modifier (min-max)
         float size = min + Random.value * (max - min);
-		OTSprite sprite = null;
-        // Create a new asteroid
-        switch (type)
-        {
-            case 1: sprite = OT.CreateSprite("asteroid1");
-                break;
-            case 2: sprite = OT.CreateSprite("asteroid2");
-                break;
-            case 3: sprite = OT.CreateSprite("asteroid3");
-                break;
-			case 4: sprite = OT.CreateSprite("asteroid4");
-                break;
-			case 5: sprite = OT.CreateSprite("enemy");
-                break;
-        }
+		OTSprite sprite = OT.CreateSprite(property);
         if (sprite != null)
         {
             // Set sprite's size

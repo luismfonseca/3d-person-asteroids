@@ -10,6 +10,7 @@ public class rockBehaviour : MonoBehaviour {
 	private Vector2 speed;
 	private Vector3 rotationSpeed;
 	
+	
 	void Awake() 
 	{
 		thisTransform = transform;
@@ -41,12 +42,8 @@ public class rockBehaviour : MonoBehaviour {
 	void Update () {
 		float deltaTime = Time.deltaTime;
 		thisTransform.Rotate(rotationSpeed * deltaTime,direction);
-		
-		Vector2 newPosition = new Vector2(
-			sprite.transform.localPosition.x + speed.x * deltaTime,
-			sprite.transform.localPosition.y + speed.y * deltaTime);
-		//thisTransform.TransformPoint(.1f * Mathf.Cos(angle), .1f * Mathf.Sin(angle), 0);
-		
+		Vector2 newPosition = sprite.transform.localPosition;
+		newPosition += speed * deltaTime;	
 		
 		// check borders
 		if (newPosition.x > 9f)
