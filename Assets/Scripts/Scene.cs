@@ -55,12 +55,12 @@ public class Scene : MonoBehaviour {
 	OTSprite RandomBlock(Rect r, float min, float max, OTObject o)
     {
         // Determine random 1-3 asteroid type
-        int t = 1 + (int)Mathf.Floor(Random.value * 5);
+        int type = 1 + (int) (Random.value * 5);
         // Determine random size modifier (min-max)
-        float s = min + Random.value * (max - min);
+        float size = min + Random.value * (max - min);
 		OTSprite sprite = null;
         // Create a new asteroid
-        switch (t)
+        switch (type)
         {
             case 1: sprite = OT.CreateSprite("asteroid1");
                 break;
@@ -77,9 +77,9 @@ public class Scene : MonoBehaviour {
         {
             // Set sprite's size
 	        if (o != null)
-	            sprite.size = o.size * s;
+	            sprite.size = o.size * size;
 	        else
-	            sprite.size = sprite.size * s;
+	            sprite.size = sprite.size * size;
 			
             // Set sprite's random position
 			switch((int)(3 * Random.value)) {
