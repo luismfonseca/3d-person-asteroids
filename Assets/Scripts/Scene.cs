@@ -6,10 +6,17 @@ public class Scene : MonoBehaviour {
 	public static int lifes = 3;
 	public static int points;
 	public static bool GameIsOver = false;
+	public static bool Winner = false;
 	public static int numberOfAsteroids = 0;
+	public static int numberOfEnemyShips = 0;
+	public static readonly int maxNumberOfLifes = 3;
+	
 	public static float enemyAppearInterval = 15f;
 	public float timeForNewEnemy = enemyAppearInterval;
-
+	
+	
+	private int[] asteroidWaves = {3,4,5,10}; //number of asteroids per Wave 
+	private static int WaveNum = 1;
 	public GUIStyle style = new GUIStyle();
 	public GUIStyle styleGameOver = new GUIStyle();
 	
@@ -17,12 +24,19 @@ public class Scene : MonoBehaviour {
 	void Start () {
 		if (lifes == 0) {
 			points = 0;
-			lifes = 3;
+			lifes = maxNumberOfLifes;
 			GameIsOver = false;
 		}
+		if(Winner){
+			lifes = maxNumberOfLifes;
+			Winner = false;
+			WaveNum = 1;	
+		} 
 		lifes--;
+		WaveNum --;
 		numberOfAsteroids = 0;
 		timeForNewEnemy = enemyAppearInterval;
+		
 	}
 	
 	void OnGUI() {
@@ -34,9 +48,17 @@ public class Scene : MonoBehaviour {
 			GUI.DrawTexture(lifePosition, playerspaceship.textureNormal);
 		}
 		
+		labelRect.Set(20, 100, Screen.width, Screen.height);
+		GUI.Label(labelRect, "Wave: "+WaveNum, style);
+		
 		if (GameIsOver) {
 			Rect label = new Rect(Screen.width / 2 - 140, Screen.height / 2, Screen.width, Screen.height);
 			GUI.Label(label, "GAME OVER", styleGameOver);
+		}
+		
+		if (Winner) {
+			Rect label = new Rect(Screen.width / 2 - 140, Screen.height / 2, Screen.width, Screen.height);
+			GUI.Label(label, "YOU WON", styleGameOver);
 		}
 	}
 	
@@ -45,9 +67,11 @@ public class Scene : MonoBehaviour {
 		if(xa.paused) {
 			return;
 		}
-		if (xa.isShoot && GameIsOver) {
+		if (xa.isShoot && (GameIsOver || Winner)) {
 			Application.LoadLevel(Application.loadedLevel);
 		}
+		
+		if(GameIsOver || Winner) return;
 		//the scene position should be the opposite of the spaceship
 		//the rotation should be done on the "root" scene (in game Camera)
 		//because the origin position changes
@@ -57,17 +81,23 @@ public class Scene : MonoBehaviour {
 			timeForNewEnemy += enemyAppearInterval;
 			OTSprite sprite = RandomBlock(OT.view.worldRect, 0.9f, 1.8f, null,"enemy");
 			sprite.transform.parent = this.transform;
+			numberOfEnemyShips++;
 		}
 		//creates ateroids if its theres not enought sprites
 		if(numberOfAsteroids < 1){
-			//numRemainingWaves--
-			//if(numRemainingWaves == 0){
-			//	//you win		
-			//}
-			for(int i=0;i< 5;++i){
+			
+			if(WaveNum  == asteroidWaves.Length){
+				if(numberOfEnemyShips < 1){
+					Winner= true;
+				}
+			} else {
+			for(int i=0;i< asteroidWaves[WaveNum];++i){
 				OTSprite sprite = RandomBlock(OT.view.worldRect, 0.9f, 1.8f, null,getRandomAsteroidSprite());
 				sprite.transform.parent = this.transform;
 				numberOfAsteroids++;
+			}
+			
+			WaveNum++;
 			}
 		}
 		if(xa.isShoot && !xa.shooting && !playerspaceship.isDead()){
@@ -95,6 +125,7 @@ public class Scene : MonoBehaviour {
 			OT.DestroyObject(original);
 		}
 	}
+	
 	
 	private static string getRandomAsteroidSprite()
 	{

@@ -67,6 +67,7 @@ public class Bullet : MonoBehaviour{
 			explosion.transform.parent = collisionSprite.transform.parent;
 			explosion.transform.localPosition = collisionSprite.transform.localPosition;
 			Scene.points += 100;
+			Scene.numberOfEnemyShips--;
 			OT.DestroyObject(collisionSprite);
 			OT.DestroyObject(owner);
 		}

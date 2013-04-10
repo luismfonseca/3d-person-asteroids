@@ -22,17 +22,17 @@ public class gameCamera : MonoBehaviour {
 		}
 	}
 	
-	public void unPause(){
+	public static void unPause(){
 		xa.paused = false;
 		Time.timeScale = 1f;
 	}
 	
-	public void pause(){
+	public static void pause(){
 		xa.paused = false;
 		Time.timeScale = 1f;
 	}
 	
-	public void TooglePause(){
+	public static void TooglePause(){
 		xa.paused = !xa.paused;
 		Time.timeScale = (xa.paused) ? 0f : 1f;
 	}
