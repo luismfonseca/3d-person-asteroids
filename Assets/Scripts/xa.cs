@@ -61,7 +61,7 @@ public class xa : MonoBehaviour {
 		isRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
 		isUp = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
 		isDown = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
-		isShoot = Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.E);
+		isShoot = Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.KeypadEnter);
 		isPause = Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.Escape);
 
 	}

@@ -5,24 +5,32 @@ public class Scene : MonoBehaviour {
 	
 	public static int lifes = 3;
 	public static int points;
+	public static bool GameIsOver = false;
 	public GUIStyle style = new GUIStyle();
+	public GUIStyle styleGameOver = new GUIStyle();
 	
 	// Use this for initialization
 	void Start () {
 		if (lifes == 0) {
 			points = 0;
 			lifes = 3;
+			GameIsOver = false;
 		}
 		lifes--;
 	}
 	
 	void OnGUI() {
-		Rect labelRect = new Rect(20, 20, Screen.width, (Screen.height/2));
+		Rect labelRect = new Rect(20, 20, Screen.width, Screen.height);
 		GUI.Label(labelRect, points.ToString(), style);
 		
 		for (int i = 0; i <= lifes; ++i) {
 			Rect lifePosition = new Rect(18 + 36 * i, 60, 30, 30);
 			GUI.DrawTexture(lifePosition, playerspaceship.textureNormal);
+		}
+		
+		if (GameIsOver) {
+			Rect label = new Rect(Screen.width / 2 - 140, Screen.height / 2, Screen.width, Screen.height);
+			GUI.Label(label, "GAME OVER", styleGameOver);
 		}
 	}
 	
@@ -30,6 +38,9 @@ public class Scene : MonoBehaviour {
 	void Update () {
 		if(xa.paused) {
 			return;
+		}
+		if (xa.isShoot && GameIsOver) {
+			Application.LoadLevel(Application.loadedLevel);
 		}
 		//the scene position should be the opposite of the spaceship
 		//the rotation should be done on the "root" scene (in game Camera)

@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class SplashScreen : MonoBehaviour{
-	public float timer =4f;
-	public string levelToLoad="start";
+	public float timer = 4f;
+	public string levelToLoad = "start";
 
 	public GUIStyle style = new GUIStyle();
 	//start

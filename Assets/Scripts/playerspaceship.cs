@@ -90,7 +90,12 @@ public class playerspaceship : MonoBehaviour {
 		}
 		else if (Time.timeSinceLevelLoad - deadSince > 2)
 		{
-			Application.LoadLevel(Application.loadedLevel);
+			if (Scene.lifes != 0) {
+				Application.LoadLevel(Application.loadedLevel);
+			}
+			else {
+				Scene.GameIsOver = true;
+			}
 		}
 		
 		speed.x *= .98f;
