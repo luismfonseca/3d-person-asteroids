@@ -17,7 +17,7 @@ public class SplashScreen : MonoBehaviour{
 		StartCoroutine ("DisplayScene"); 
 	}
 
-	IEnumerator DisplayScene(){
+	IEnumerator DisplayScene() {
 		 yield return new WaitForSeconds(timer);
 		Application.LoadLevel(levelToLoad);
 

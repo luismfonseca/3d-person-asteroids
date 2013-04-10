@@ -66,15 +66,26 @@ public class Bullet : MonoBehaviour{
 			OTSprite explosion = OT.CreateSprite("explosion");
 			explosion.transform.parent = collisionSprite.transform.parent;
 			explosion.transform.localPosition = collisionSprite.transform.localPosition;
+			Scene.points += 100;
 			OT.DestroyObject(collisionSprite);
-			OT.DestroyObject(owner);	
+			OT.DestroyObject(owner);
 		}
 		else if (collisionSprite.protoType.StartsWith("asteroid")) {
+			var asteroidSize = collisionSprite.size.x;
+			if (asteroidSize >= 1.4f) {
+				Scene.points += 10;
+			}
+			else if (asteroidSize >= 0.8f) {
+				Scene.points += 20;
+			}
+			else if (asteroidSize >= 0.6f) {
+				Scene.points += 50;
+			}
+			else {
+				Scene.points += 100;
+			}
 			OT.DestroyObject(this.GetComponent<MonoBehaviour>());
 		}
 	}
 	
-	
 }
-
-

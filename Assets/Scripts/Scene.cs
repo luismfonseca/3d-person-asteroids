@@ -3,9 +3,27 @@ using System.Collections;
 
 public class Scene : MonoBehaviour {
 	
+	public static int lifes = 3;
+	public static int points;
+	public GUIStyle style = new GUIStyle();
+	
 	// Use this for initialization
 	void Start () {
+		if (lifes == 0) {
+			points = 0;
+			lifes = 3;
+		}
+		lifes--;
+	}
+	
+	void OnGUI() {
+		Rect labelRect = new Rect(20, 20, Screen.width, (Screen.height/2));
+		GUI.Label(labelRect, points.ToString(), style);
 		
+		for (int i = 0; i <= lifes; ++i) {
+			Rect lifePosition = new Rect(18 + 36 * i, 60, 30, 30);
+			GUI.DrawTexture(lifePosition, playerspaceship.textureNormal);
+		}
 	}
 	
 	// Update is called once per frame
