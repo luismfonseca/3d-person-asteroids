@@ -52,7 +52,13 @@ public class EnemyShip : MonoBehaviour{
 			position = new Vector2(position.x, -9f);
 		else if (position.y < -9f)
 			position = new Vector2(position.x, 9f);
-		
+	}
+	
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.name.StartsWith("asteroid")) {
+			DestroyObject(this.GetComponent<MonoBehaviour>());
+		}
 	}
 }
 

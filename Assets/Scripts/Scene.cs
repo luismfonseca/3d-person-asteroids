@@ -20,10 +20,10 @@ public class Scene : MonoBehaviour {
 		
 		//creates ateroids if its theres not enought sprites
 		if(OT.objectCount <= 5){
-			OTSprite sprite = RandomBlock(OT.view.worldRect, 0.6f, 1.8f, null);        
+			OTSprite sprite = RandomBlock(OT.view.worldRect, 0.9f, 1.8f, null);        
 			sprite.transform.parent = this.transform;
 		}
-		if(xa.isShoot && !xa.shooting){
+		if(xa.isShoot && !xa.shooting && !playerspaceship.isDead()){
 			OTSprite bullet = OT.CreateSprite("bullet");
 			bullet.transform.parent = transform;
 			bullet.transform.localPosition = playerspaceship.originalPosition;
@@ -35,23 +35,21 @@ public class Scene : MonoBehaviour {
 	}
 	
 	public static void SplitAsteroids(OTSprite original) {
-		if (original.size.x >= .5f) {
-			var asteroid1 = OT.CreateSprite(getRandomAsteroidSprite());
+		if (original.size.x > 0.9f) {
 			var asteroid2 = OT.CreateSprite(getRandomAsteroidSprite());
 			
-			asteroid1.transform.parent = original.transform.parent;
-			asteroid1.transform.localPosition = original.transform.localPosition;
 			asteroid2.transform.parent = original.transform.parent;
 			asteroid2.transform.localPosition = original.transform.localPosition;
-			asteroid1.size = original.size / 2;
-			asteroid2.size = original.size / 2;
+			original.size = original.size / 2;
+			asteroid2.size = original.size;
+		} else {
+			OT.DestroyObject(original);
 		}
-		OT.DestroyObject(original);
 	}
 	
 	private static string getRandomAsteroidSprite()
 	{
-		return "asteroid1";//;  + (1 + 3 * Random.value);
+		return "asteroid" + (int)(1 + 3 * Random.value);;
 	}
 	
 	OTSprite RandomBlock(Rect r, float min, float max, OTObject o)
@@ -82,9 +80,24 @@ public class Scene : MonoBehaviour {
 	            sprite.size = o.size * s;
 	        else
 	            sprite.size = sprite.size * s;
+			
             // Set sprite's random position
-            sprite.position = new Vector2(r.xMin + Random.value * r.width, r.yMin + Random.value * r.height);
-            // Set sprote's random rotation
+			switch((int)(3 * Random.value)) {
+			case 0: // TOP
+				sprite.position = new Vector2(r.xMin + Random.value * r.width, r.yMin);
+				break;
+			case 1: // RIGHT
+				sprite.position = new Vector2(r.xMin + r.width, r.yMin + Random.value * r.height);
+				break;
+			case 2: // BOTTOM
+				sprite.position = new Vector2(r.xMin + Random.value * r.width, r.yMin + r.height);
+				break;
+			case 3: // LEFT
+				sprite.position = new Vector2(r.xMin, r.yMin + Random.value * r.height);
+				break;
+			}
+			
+            // Set sprite's random rotation
             sprite.rotation = Random.value * 360;
             // Set sprite's name
             /*sprite.depth = dp++;

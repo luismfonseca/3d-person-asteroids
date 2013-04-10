@@ -61,17 +61,17 @@ public class Bullet : MonoBehaviour{
 	
 	public void OnCollision(OTObject owner)
     {
-		OTSprite colisionSprite = owner.collisionObject as OTSprite;
-		if(colisionSprite.protoType == "enemy"){
+		OTSprite collisionSprite = owner.collisionObject as OTSprite;
+		if(collisionSprite.protoType == "enemy"){
 			OTSprite explosion = OT.CreateSprite("explosion");
-			explosion.transform.parent = colisionSprite.transform.parent;
-			explosion.transform.localPosition = colisionSprite.transform.localPosition;
-			OT.DestroyObject(colisionSprite);
+			explosion.transform.parent = collisionSprite.transform.parent;
+			explosion.transform.localPosition = collisionSprite.transform.localPosition;
+			OT.DestroyObject(collisionSprite);
 			OT.DestroyObject(owner);	
-		} //else if(sprite.protoType.StartsWith("asteroid")){
-		//	OT.DestroyObject(owner);	
-		//}
-		
+		}
+		else if (collisionSprite.protoType.StartsWith("asteroid")) {
+			OT.DestroyObject(this.GetComponent<MonoBehaviour>());
+		}
 	}
 	
 	

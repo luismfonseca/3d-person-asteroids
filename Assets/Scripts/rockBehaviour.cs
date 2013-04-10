@@ -21,9 +21,6 @@ public class rockBehaviour : MonoBehaviour {
 		if (other.name.StartsWith("asteroid")) // other asteroids don't affect us
 			return;
 		
-		if (other.name.StartsWith("enemy"))
-			return;
-		
 		if (other.name.StartsWith("spaceship")) {
 			if (playerspaceship.isDead())
 				return;
@@ -48,7 +45,7 @@ public class rockBehaviour : MonoBehaviour {
 		thisTransform.Rotate(rotationSpeed * deltaTime,direction);
 		
 		position += speed * deltaTime;
-		this.transform.localPosition = position;
+		sprite.transform.localPosition = position;
 		//thisTransform.TransformPoint(.1f * Mathf.Cos(angle), .1f * Mathf.Sin(angle), 0);
 		
 		

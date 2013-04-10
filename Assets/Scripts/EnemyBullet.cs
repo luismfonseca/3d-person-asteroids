@@ -5,7 +5,7 @@ public class EnemyBullet : MonoBehaviour{
 	private OTSprite sprite;
 	private float speed = 13;
 	private float lifeTime;
-	public static float bulletLifeTime = 1;
+	public static float bulletLifeTime = 0.7f;
 	private Vector2 movedirection;
 
 	

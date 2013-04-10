@@ -42,6 +42,10 @@ public class playerspaceship : MonoBehaviour {
 		{
 			Destroy(other.GetComponent<MonoBehaviour>());
 		}
+		else if (other.name.StartsWith("enemyShip"))
+		{
+			Destroy(other.GetComponent<MonoBehaviour>());
+		}
 		
 		if (other.name.StartsWith("asteroid"))
 		{
