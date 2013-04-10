@@ -13,6 +13,9 @@ public class playerspaceship : MonoBehaviour {
 	
 	public static float deadSince;
 	
+	private static readonly Texture textureNormal = Resources.Load("spaceship") as Texture;
+	private static readonly Texture texturePower = Resources.Load("spaceship_power") as Texture;
+	
 	public static bool isDead() {
 		return (deadSince != 0f);
 	}
@@ -28,6 +31,7 @@ public class playerspaceship : MonoBehaviour {
 		speed = Vector2.zero;
 		rotation = 0f;
 		deadSince = 0f;
+		Debug.LogWarning(""+texturePower);
 	}
 	
 	void OnTriggerEnter(Collider other)
@@ -77,9 +81,12 @@ public class playerspaceship : MonoBehaviour {
 	
 			// movement
 			if (xa.isUp) { // increase spaceship speed
-				
+				sprite.image = texturePower;
 				speed.x += 9f * Mathf.Cos((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
 				speed.y += 9f * Mathf.Sin((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
+			}
+			else {
+				sprite.image = textureNormal;
 			}
 		}
 		else if (Time.timeSinceLevelLoad - deadSince > 2)
