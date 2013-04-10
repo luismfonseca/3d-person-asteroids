@@ -34,8 +34,6 @@ public class EnemyShip : MonoBehaviour{
 			bullet.transform.parent = transform.parent;
 			bullet.transform.localPosition = transform.localPosition;
 			bullet.RotateTowards(playerspaceship.originalPosition);
-
-			
 		}
 		
 		position += speed * deltaTime;
@@ -56,7 +54,7 @@ public class EnemyShip : MonoBehaviour{
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.name.StartsWith("asteroid")) {
+		if (other.name.StartsWith("asteroid") || other.name.StartsWith("spaceship")) {
 			DestroyObject(this.GetComponent<MonoBehaviour>());
 		}
 	}
