@@ -15,7 +15,7 @@ public class Scene : MonoBehaviour {
 	public float timeForNewEnemy = enemyAppearInterval;
 	
 	
-	private int[] asteroidWaves = {3,4,5,10}; //number of asteroids per Wave 
+	private int[] asteroidWaves = {3, 4, 5, 10}; //number of asteroids per Wave 
 	private static int WaveNum = 1;
 	public GUIStyle style = new GUIStyle();
 	public GUIStyle styleGameOver = new GUIStyle();
