@@ -35,4 +35,12 @@ public class CStart : MonoBehaviour {
 	
 	    }
 	}
+	
+	
+	public void Update() 
+	{
+		if (Input.GetKey(KeyCode.F2) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.KeypadEnter)) {
+			Application.LoadLevel("level1");
+		}
+	}
 }
