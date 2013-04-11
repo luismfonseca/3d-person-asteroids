@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 
 public class EnemyShip : MonoBehaviour{
-	private Vector2 position;
 	private float angle;
 	private OTSprite sprite;
 	private Vector2 speed;
@@ -18,7 +17,6 @@ public class EnemyShip : MonoBehaviour{
 	void Start () {
 		sprite = GetComponent<OTSprite>();
 		angle = Random.value * 360f;
-		position = sprite.position;
 		speed = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle))* (Random.value+0.5f) * 2;
 		sprite.rotation = Random.value*360f;
 	}
@@ -55,7 +53,7 @@ public class EnemyShip : MonoBehaviour{
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.name.StartsWith("asteroid") || other.name.StartsWith("spaceship")) {
-			DestroyObject(this.GetComponent<MonoBehaviour>());
+			Scene.destroyEnemyShip(this.GetComponent<OTSprite>());
 		}
 	}
 }

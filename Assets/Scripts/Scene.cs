@@ -22,7 +22,7 @@ public class Scene : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		if (lifes == 0) {
+		if (lifes <= 0) {
 			points = 0;
 			lifes = maxNumberOfLifes;
 			GameIsOver = false;
@@ -35,6 +35,7 @@ public class Scene : MonoBehaviour {
 		lifes--;
 		WaveNum --;
 		numberOfAsteroids = 0;
+		numberOfEnemyShips = 0;
 		timeForNewEnemy = enemyAppearInterval;
 		
 	}
@@ -45,11 +46,13 @@ public class Scene : MonoBehaviour {
 		
 		for (int i = 0; i <= lifes; ++i) {
 			Rect lifePosition = new Rect(18 + 36 * i, 60, 30, 30);
-			GUI.DrawTexture(lifePosition, playerspaceship.textureNormal);
+			if(playerspaceship.textureNormal != null){
+				GUI.DrawTexture(lifePosition, playerspaceship.textureNormal);
+			}
 		}
 		
 		labelRect.Set(20, 100, Screen.width, Screen.height);
-		GUI.Label(labelRect, "Wave: "+WaveNum, style);
+		GUI.Label(labelRect, "Level: "+WaveNum, style);
 		
 		if (GameIsOver) {
 			Rect label = new Rect(Screen.width / 2 - 140, Screen.height / 2, Screen.width, Screen.height);
@@ -79,9 +82,9 @@ public class Scene : MonoBehaviour {
 		timeForNewEnemy -= Time.deltaTime;
 		if(timeForNewEnemy < 0){
 			timeForNewEnemy += enemyAppearInterval;
-			OTSprite sprite = RandomBlock(OT.view.worldRect, 0.9f, 1.8f, null,"enemy");
+			OTSprite sprite = RandomBlock(OT.view.worldRect, 1.2f, 1.8f, null,"enemy");
+			numberOfEnemyShips ++;
 			sprite.transform.parent = this.transform;
-			numberOfEnemyShips++;
 		}
 		//creates ateroids if its theres not enought sprites
 		if(numberOfAsteroids < 1){
@@ -124,6 +127,14 @@ public class Scene : MonoBehaviour {
 			numberOfAsteroids--;
 			OT.DestroyObject(original);
 		}
+	}
+	
+	public static void destroyEnemyShip(OTSprite sprite){
+		OTSprite explosion = OT.CreateSprite("explosion");
+		explosion.transform.parent = sprite.transform.parent;
+		explosion.transform.localPosition = sprite.transform.localPosition;
+		OT.DestroyObject(sprite);
+		numberOfEnemyShips --;
 	}
 	
 	

@@ -6,15 +6,15 @@ public class playerspaceship : MonoBehaviour {
 	public static Vector2 speed;
 	public static OTSprite sprite;
 	
+	public static Texture textureNormal = null;
+	public static Texture texturePower = null;
+	
 	public static float rotation;
 	public static float deltaRotation;
 	public static Vector2 position;
 	public static Vector2 originalPosition;
 	
 	public static float deadSince;
-	
-	public static readonly Texture textureNormal = Resources.Load("spaceship") as Texture;
-	public static readonly Texture texturePower = Resources.Load("spaceship_power") as Texture;
 	
 	public static bool isDead() {
 		return (deadSince != 0f);
@@ -26,6 +26,10 @@ public class playerspaceship : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start() {
+		if(textureNormal == null){
+			textureNormal = Resources.Load("spaceship") as Texture;
+			texturePower = Resources.Load("spaceship_power") as Texture;
+		}
 		sprite = GetComponent<OTSprite>();
 		originalPosition = Vector2.zero;
 		speed = Vector2.zero;

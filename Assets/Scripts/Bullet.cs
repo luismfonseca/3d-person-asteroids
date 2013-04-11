@@ -63,12 +63,8 @@ public class Bullet : MonoBehaviour{
     {
 		OTSprite collisionSprite = owner.collisionObject as OTSprite;
 		if(collisionSprite.protoType == "enemy"){
-			OTSprite explosion = OT.CreateSprite("explosion");
-			explosion.transform.parent = collisionSprite.transform.parent;
-			explosion.transform.localPosition = collisionSprite.transform.localPosition;
+			Scene.destroyEnemyShip(collisionSprite);
 			Scene.points += 100;
-			Scene.numberOfEnemyShips--;
-			OT.DestroyObject(collisionSprite);
 			OT.DestroyObject(owner);
 		}
 		else if (collisionSprite.protoType.StartsWith("asteroid")) {
