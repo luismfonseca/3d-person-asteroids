@@ -10,12 +10,22 @@ public class Scene : MonoBehaviour {
 	public static int numberOfAsteroids = 0;
 	public static int numberOfEnemyShips = 0;
 	public static readonly int maxNumberOfLifes = 3;
-	private static int WaveNum = 1;
+	public float WinTimeStamp = 0;
+	public static float WinInputLockTime = 3f;
 
+	public static int WaveNum = 1;
+
+	public float TimeSinceWin{
+		get { return Time.timeSinceLevelLoad - WinTimeStamp;}
+	}
 	
+	public static float asteroidSpeedFactor{
+		get{return 1+(0.05f*WaveNum);}	
+	}
 	
-	private int[] asteroidWaves = {3, 4, 5, 10}; //number of asteroids per Wave 
+	private int[] asteroidWaves = {3,5,7,10}; //number of asteroids per Wave 
 	private int[] enemyAppearIntervalWave = {15, 13, 10, 7}; //interval appearance of enemy ships per Wave 
+	
 	public float timeForNewEnemy;
 
 	public GUIStyle style = new GUIStyle();
@@ -62,7 +72,7 @@ public class Scene : MonoBehaviour {
 		}
 		
 		if (Winner) {
-			Rect label = new Rect(Screen.width / 2 - 140, Screen.height / 2, Screen.width, Screen.height);
+			Rect label = new Rect(Screen.width / 2 - 140, Screen.height / 1.5f, Screen.width, Screen.height);
 			GUI.Label(label, "YOU WON", styleGameOver);
 		}
 	}
@@ -72,7 +82,7 @@ public class Scene : MonoBehaviour {
 		if(xa.paused) {
 			return;
 		}
-		if (xa.isShoot && (GameIsOver || Winner)) {
+		if (xa.isShoot && (GameIsOver || (Winner && TimeSinceWin > 1))) {
 			Application.LoadLevel(Application.loadedLevel);
 		}
 		
@@ -90,6 +100,7 @@ public class Scene : MonoBehaviour {
 			if(WaveNum  == asteroidWaves.Length){
 				if(numberOfEnemyShips < 1){
 					Winner= true;
+					WinTimeStamp = Time.timeSinceLevelLoad;
 				}
 			} else {
 			for(int i=0;i< asteroidWaves[WaveNum];++i){
