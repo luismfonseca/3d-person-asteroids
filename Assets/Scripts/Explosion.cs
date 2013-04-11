@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Explosion : MonoBehaviour{
 	private OTSprite sprite;
+	Vector2 maxSize = new Vector2(2,2);
+	public static readonly float maxLifeTime= 1f;
 	private float lifeTime;
 
 	
@@ -19,11 +21,16 @@ public class Explosion : MonoBehaviour{
 	
 	// Update is called once per frame
 	void Update () {
-		lifeTime -= Time.deltaTime;
-		if(lifeTime < 0){
+		if(sprite == null){
+			return;	
+		}
+		lifeTime += Time.deltaTime;
+		if(lifeTime >= maxLifeTime){
 			OT.DestroyObject(sprite);
-			lifeTime = 1;
+			lifeTime = 0;
 			return;
 		}
+		
+		sprite.size = maxSize * (Mathf.Sin(Mathf.PI * (lifeTime/maxLifeTime)));
 	}
 }

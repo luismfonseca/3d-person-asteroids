@@ -84,7 +84,7 @@ public class playerspaceship : MonoBehaviour {
 			}
 	
 			// movement
-			if (xa.isUp) { // increase spaceship speed
+			if (xa.isUp && !Scene.Winner) { // increase spaceship speed
 				sprite.image = texturePower;
 				speed.x += 9f * Mathf.Cos((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
 				speed.y += 9f * Mathf.Sin((Mathf.PI / 180) * (rotation + 90)) * deltaTime;

@@ -10,13 +10,14 @@ public class Scene : MonoBehaviour {
 	public static int numberOfAsteroids = 0;
 	public static int numberOfEnemyShips = 0;
 	public static readonly int maxNumberOfLifes = 3;
-	
-	public static float enemyAppearInterval = 15f;
-	public float timeForNewEnemy = enemyAppearInterval;
+	private static int WaveNum = 1;
+
 	
 	
 	private int[] asteroidWaves = {3, 4, 5, 10}; //number of asteroids per Wave 
-	private static int WaveNum = 1;
+	private int[] enemyAppearIntervalWave = {15, 13, 10, 7}; //interval appearance of enemy ships per Wave 
+	public float timeForNewEnemy;
+
 	public GUIStyle style = new GUIStyle();
 	public GUIStyle styleGameOver = new GUIStyle();
 	
@@ -28,6 +29,7 @@ public class Scene : MonoBehaviour {
 			GameIsOver = false;
 		}
 		if(Winner){
+			points = 0;
 			lifes = maxNumberOfLifes;
 			Winner = false;
 			WaveNum = 1;	
@@ -36,7 +38,7 @@ public class Scene : MonoBehaviour {
 		WaveNum --;
 		numberOfAsteroids = 0;
 		numberOfEnemyShips = 0;
-		timeForNewEnemy = enemyAppearInterval;
+		timeForNewEnemy = enemyAppearIntervalWave[WaveNum];
 		
 	}
 	
@@ -74,18 +76,14 @@ public class Scene : MonoBehaviour {
 			Application.LoadLevel(Application.loadedLevel);
 		}
 		
-		if(GameIsOver || Winner) return;
 		//the scene position should be the opposite of the spaceship
 		//the rotation should be done on the "root" scene (in game Camera)
 		//because the origin position changes
 		this.transform.localPosition = -playerspaceship.originalPosition;
-		timeForNewEnemy -= Time.deltaTime;
-		if(timeForNewEnemy < 0){
-			timeForNewEnemy += enemyAppearInterval;
-			OTSprite sprite = RandomBlock(OT.view.worldRect, 1.2f, 1.8f, null,"enemy");
-			numberOfEnemyShips ++;
-			sprite.transform.parent = this.transform;
-		}
+		if(GameIsOver || Winner) return;
+
+		
+
 		//creates ateroids if its theres not enought sprites
 		if(numberOfAsteroids < 1){
 			
@@ -103,6 +101,18 @@ public class Scene : MonoBehaviour {
 			WaveNum++;
 			}
 		}
+		
+		
+		if(WaveNum <= enemyAppearIntervalWave.Length){
+			timeForNewEnemy -= Time.deltaTime;
+			if(timeForNewEnemy < 0){
+				timeForNewEnemy += enemyAppearIntervalWave[WaveNum-1];
+				OTSprite sprite = RandomBlock(OT.view.worldRect, 1.2f, 1.8f, null,"enemy");
+				numberOfEnemyShips ++;
+				sprite.transform.parent = this.transform;
+			}
+		}
+		
 		if(xa.isShoot && !xa.shooting && !playerspaceship.isDead()){
 			OTSprite bullet = OT.CreateSprite("bullet");
 			bullet.transform.parent = transform;
