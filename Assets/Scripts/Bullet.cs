@@ -62,7 +62,7 @@ public class Bullet : MonoBehaviour{
 	public void OnCollision(OTObject owner)
     {
 		OTSprite collisionSprite = owner.collisionObject as OTSprite;
-		if(collisionSprite.protoType == "enemy"){
+		if (collisionSprite.protoType == "enemy") {
 			Scene.destroyEnemyShip(collisionSprite);
 			Scene.points += 100;
 			OT.DestroyObject(owner);

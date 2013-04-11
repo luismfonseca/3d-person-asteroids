@@ -54,12 +54,13 @@ public class playerspaceship : MonoBehaviour {
 			Destroy(other.GetComponent<MonoBehaviour>());
 		}
 		
-		if (other.name.StartsWith("asteroid"))
-		{
-		}
-		
 		sprite.visible = false;
 		deadSince = Time.timeSinceLevelLoad;
+		
+		if (other.name.StartsWith("asteroid"))
+		{
+			Scene.SplitAsteroids(other.gameObject.GetComponent<OTSprite>());
+		}
 	}
 	
 	// Update is called once per frame
