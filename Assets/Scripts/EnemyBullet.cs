@@ -20,6 +20,17 @@ public class EnemyBullet : MonoBehaviour{
 		lifeTime = bulletLifeTime;
 	}
 	
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.name.StartsWith("asteroid") || 
+			other.name.StartsWith("spaceship")){ // other asteroids don't affect us
+			OT.DestroyObject(sprite);
+
+		}
+		
+		
+	}
+	
 	// Update is called once per frame
 	void Update () {
 		if(xa.paused){ return;}

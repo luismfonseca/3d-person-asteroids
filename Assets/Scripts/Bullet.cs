@@ -20,8 +20,6 @@ public class Bullet : MonoBehaviour{
 		movedirection = playerspaceship.sprite.yVector;
 		playerspaceship.sprite.rotation = 0;
 		sprite.position += movedirection/2;
-
-		sprite.onCollision = OnCollision; 
 	}
 	
 	public void initialize(){
@@ -59,15 +57,16 @@ public class Bullet : MonoBehaviour{
 		
 	}
 	
-	public void OnCollision(OTObject owner)
-    {
-		OTSprite collisionSprite = owner.collisionObject as OTSprite;
-		if (collisionSprite.protoType == "enemy") {
+		void OnTriggerEnter(Collider other){
+			OTSprite collisionSprite = other.GetComponent<OTSprite>();
+
+		if (other.name.StartsWith("enemy")){
 			Scene.destroyEnemyShip(collisionSprite);
 			Scene.AddPoints(100);
-			OT.DestroyObject(owner);
+			OT.DestroyObject(sprite);
+
 		}
-		else if (collisionSprite.protoType.StartsWith("asteroid")) {
+		else if	(other.name.StartsWith("asteroid")){ // other asteroids don't affect us
 			var asteroidSize = collisionSprite.size.x;
 			if (asteroidSize >= 1.4f) {
 				Scene.AddPoints(10);
@@ -81,8 +80,9 @@ public class Bullet : MonoBehaviour{
 			else {
 				Scene.AddPoints(100);
 			}
-			OT.DestroyObject(this.GetComponent<MonoBehaviour>());
-		}
+			OT.DestroyObject(sprite);
+		}	
+
 	}
 	
 }
