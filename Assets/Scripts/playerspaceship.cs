@@ -4,6 +4,7 @@ using System.Collections;
 public class playerspaceship : MonoBehaviour {
 	
 	public static Vector2 speed;
+	public static float rotationalSpeed;
 	public static OTSprite sprite;
 	
 	public static Texture textureNormal = null;
@@ -35,6 +36,7 @@ public class playerspaceship : MonoBehaviour {
 		speed = Vector2.zero;
 		rotation = 0f;
 		deadSince = 0f;
+		rotationalSpeed = 0f;
 	}
 	
 	void OnTriggerEnter(Collider other)
@@ -74,8 +76,9 @@ public class playerspaceship : MonoBehaviour {
 		if (!isDead()) // still alive?
 		{
 			// rotation
-			deltaRotation = xa.isLeft ? 160f *deltaTime: xa.isRight ? -160f *deltaTime: 0;
-			rotation += deltaRotation;
+			deltaRotation = xa.isLeft ? 40f *deltaTime: xa.isRight ? -40f *deltaTime: 0;
+			rotationalSpeed += deltaRotation;
+			rotation += rotationalSpeed;
 			if(rotation > 360) {
 				rotation -= 360;
 			}
@@ -86,8 +89,8 @@ public class playerspaceship : MonoBehaviour {
 			// movement
 			if (xa.isUp && !Scene.Winner) { // increase spaceship speed
 				sprite.image = texturePower;
-				speed.x += 9f * Mathf.Cos((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
-				speed.y += 9f * Mathf.Sin((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
+				speed.x += 11f * Mathf.Cos((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
+				speed.y += 11f * Mathf.Sin((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
 			}
 			else {
 				sprite.image = textureNormal;
@@ -102,6 +105,8 @@ public class playerspaceship : MonoBehaviour {
 				Scene.GameIsOver = true;
 			}
 		}
+		
+		rotationalSpeed *= .85f;
 		
 		speed.x *= .98f;
 		speed.y *= .98f;
