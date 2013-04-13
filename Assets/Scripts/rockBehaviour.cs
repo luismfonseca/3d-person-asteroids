@@ -43,7 +43,7 @@ public class rockBehaviour : MonoBehaviour {
 		float deltaTime = Time.deltaTime;
 		thisTransform.Rotate(rotationSpeed * deltaTime,direction);
 		Vector2 newPosition = sprite.transform.localPosition;
-		newPosition += speed * deltaTime;	
+		newPosition += speed * deltaTime * Scene.asteroidSpeedFactor;	
 		
 		// check borders
 		if (newPosition.x > 9f)
