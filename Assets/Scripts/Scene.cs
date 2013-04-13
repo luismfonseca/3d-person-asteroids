@@ -37,7 +37,7 @@ public class Scene : MonoBehaviour {
 		Scene.points += Mathf.RoundToInt(points *(1+0.1f*WaveNum)); 
 	}
 	
-	private int[] asteroidWaves = {3,5,7,10}; //number of asteroids per Wave 
+	private int[] asteroidWaves = {3, 5, 7, 10}; //number of asteroids per Wave 
 	private int[] enemyAppearIntervalWave = {15, 13, 10, 7}; //interval appearance of enemy ships per Wave 
 	
 	public float timeForNewEnemy;

@@ -8,6 +8,8 @@ public class EnemyShip : MonoBehaviour{
 	private Vector3 rotationSpeed;
 	private float reloadTime = 2f;
 	
+	private static readonly float BORDER_LIMITS = 9.4f;
+	
 	void Awake() 
 	{
 	}
@@ -38,14 +40,14 @@ public class EnemyShip : MonoBehaviour{
 		newPosition += speed * deltaTime;	
 		
 		// check borders
-		if (newPosition.x > 9f)
-			newPosition.Set(-9f, newPosition.y);
-		else if (newPosition.x < -9f)
-			newPosition.Set(9f, newPosition.y);
-		else if (newPosition.y > 9f)
-			newPosition.Set(newPosition.x, -9f);
-		else if (newPosition.y < -9f)
-			newPosition.Set(newPosition.x, 9f);
+		if (newPosition.x > BORDER_LIMITS)
+			newPosition.Set(-BORDER_LIMITS, newPosition.y);
+		else if (newPosition.x < -BORDER_LIMITS)
+			newPosition.Set(BORDER_LIMITS, newPosition.y);
+		else if (newPosition.y > BORDER_LIMITS)
+			newPosition.Set(newPosition.x, -BORDER_LIMITS);
+		else if (newPosition.y < -BORDER_LIMITS)
+			newPosition.Set(newPosition.x, BORDER_LIMITS);
 		
 		sprite.transform.localPosition = newPosition;
 	}
