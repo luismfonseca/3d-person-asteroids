@@ -17,6 +17,8 @@ public class playerspaceship : MonoBehaviour {
 	
 	public static float deadSince;
 	
+	private static readonly float BORDER_LIMITS = 9.4f;
+	
 	public static bool isDead() {
 		return (deadSince != 0f);
 	}
@@ -111,14 +113,14 @@ public class playerspaceship : MonoBehaviour {
 		speed.x *= .98f;
 		speed.y *= .98f;
 
-		if (originalPosition.x > 9f)
-			originalPosition = new Vector2(-9f, originalPosition.y);
-		else if (originalPosition.x < -9f)
-			originalPosition = new Vector2(9f, originalPosition.y);
-		else if (originalPosition.y > 9f)
-			originalPosition = new Vector2(originalPosition.x, -9f);
-		else if (originalPosition.y < -9f)
-			originalPosition = new Vector2(originalPosition.x, 9f);
+		if (originalPosition.x > BORDER_LIMITS)
+			originalPosition = new Vector2(-BORDER_LIMITS, originalPosition.y);
+		else if (originalPosition.x < -BORDER_LIMITS)
+			originalPosition = new Vector2(BORDER_LIMITS, originalPosition.y);
+		else if (originalPosition.y > BORDER_LIMITS)
+			originalPosition = new Vector2(originalPosition.x, -BORDER_LIMITS);
+		else if (originalPosition.y < -BORDER_LIMITS)
+			originalPosition = new Vector2(originalPosition.x, BORDER_LIMITS);
 		originalPosition += speed * deltaTime;
 		//this.transform.localPosition = originalPosition;
 		this.transform.localEulerAngles = new Vector3(0,0,rotation);
