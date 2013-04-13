@@ -45,7 +45,7 @@ public class Scene : MonoBehaviour {
 	public GUIStyle style = new GUIStyle();
 	public GUIStyle styleGameOver = new GUIStyle();
 	
-	// Use this for initialization
+	// Script initialization
 	void Start () {
 		if (lifes <= 0) {
 			points = 0;
@@ -127,7 +127,7 @@ public class Scene : MonoBehaviour {
 			}
 		}
 		
-		
+		// enemy ship appearance
 		if(WaveNum <= enemyAppearIntervalWave.Length){
 			timeForNewEnemy -= Time.deltaTime;
 			if(timeForNewEnemy < 0){
@@ -137,7 +137,7 @@ public class Scene : MonoBehaviour {
 				sprite.transform.parent = this.transform;
 			}
 		}
-		
+		// player bullet shot
 		if(xa.isShoot && !xa.shooting && !playerspaceship.isDead()){
 			OTSprite bullet = OT.CreateSprite("bullet");
 			bullet.transform.parent = transform;
@@ -148,7 +148,7 @@ public class Scene : MonoBehaviour {
 			}
 		}
 	}
-	
+	// splits asteroids in 2
 	public static void SplitAsteroids(OTSprite original) {
 		if (original.size.x > 0.9f) {
 			var asteroid2 = OT.CreateSprite(getRandomAsteroidSprite());
@@ -163,16 +163,20 @@ public class Scene : MonoBehaviour {
 			OT.DestroyObject(original);
 		}
 	}
-	
-	public static void destroyEnemyShip(OTSprite sprite){
+	// creates an explosion on the sprite, removing them
+	public static void ExplodeSprite(OTSprite sprite){
 		OTSprite explosion = OT.CreateSprite("explosion");
 		explosion.transform.parent = sprite.transform.parent;
-		explosion.transform.localPosition = sprite.transform.localPosition;
+		explosion.position = sprite.transform.localPosition;
 		OT.DestroyObject(sprite);
+	}
+	
+	public static void destroyEnemyShip(OTSprite sprite){
+		ExplodeSprite(sprite);
 		numberOfEnemyShips --;
 	}
 	
-	
+	// gets the prototype name of a random asteroid
 	private static string getRandomAsteroidSprite()
 	{
 		return "asteroid" + (int)(1 + 3 * Random.value);;
