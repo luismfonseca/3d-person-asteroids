@@ -1,28 +1,38 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Scene Class, it contains all the objects expect the spaceship.
+/// </summary>
 public class Scene : MonoBehaviour {
+	public static int lifes = 3;             //current number of lifes
+	public static readonly int maxLifes = 3; //maximum number of lifes
+
+	public static int points;              //game score
+	public static bool GameIsOver = false; //true means the player lost the game
+	public static bool Winner = false;     //true means the player won the game
 	
-	public static int lifes = 3;
-	public static int points;
-	public static bool GameIsOver = false;
-	public static bool Winner = false;
-	public static int numberOfAsteroids = 0;
-	public static int numberOfEnemyShips = 0;
-	public static readonly int maxNumberOfLifes = 3;
-	public float WinTimeStamp = 0;
+	// timestamp to show when the user won the game, 
+	// usefull to lock the user input when he won the game
+	// avoiding the player to restart the game without noticing
+	// that he won the game
+	public float WinTimeStamp = 0;             
 	public static float WinInputLockTime = 3f;
 
+	public static int numberOfAsteroids = 0; //number on asteroids in the scene
+	public static int numberOfEnemyShips = 0;//number on enemy ships in the scene
+	
 	public static int WaveNum = 1;
-
+	
+	// time passed since the player won
 	public float TimeSinceWin{
 		get { return Time.timeSinceLevelLoad - WinTimeStamp;}
 	}
-	
+	// speed factor of the asteroid each level so the next level becomes harder
 	public static float asteroidSpeedFactor{
 		get{return 1+(0.05f*WaveNum);}	
 	}
-	
+	// adds points to the game, the points added depends
 	public static void AddPoints(int points){
 		Scene.points += Mathf.RoundToInt(points *(1+0.1f*WaveNum)); 
 	}
@@ -39,12 +49,12 @@ public class Scene : MonoBehaviour {
 	void Start () {
 		if (lifes <= 0) {
 			points = 0;
-			lifes = maxNumberOfLifes;
+			lifes = maxLifes;
 			GameIsOver = false;
 		}
 		if(Winner){
 			points = 0;
-			lifes = maxNumberOfLifes;
+			lifes = maxLifes;
 			Winner = false;
 			WaveNum = 1;	
 		} 
