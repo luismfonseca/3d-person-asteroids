@@ -17,7 +17,7 @@ public class playerspaceship : MonoBehaviour {
 	
 	public static float deadSince;
 	
-	private static readonly float BORDER_LIMITS = 9.4f;
+	private static readonly float BORDER_LIMITS = Scene.BORDER_LIMITS;
 	
 	public static bool isDead() {
 		return (deadSince != 0f);

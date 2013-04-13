@@ -8,7 +8,7 @@ public class EnemyShip : MonoBehaviour{
 	private Vector3 rotationSpeed;
 	private float reloadTime = 2f;
 	
-	private static readonly float BORDER_LIMITS = 9.4f;
+	private static readonly float BORDER_LIMITS = Scene.BORDER_LIMITS;
 	
 	void Awake() 
 	{

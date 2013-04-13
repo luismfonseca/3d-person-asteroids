@@ -2,20 +2,19 @@ using UnityEngine;
 using System.Collections;
 
 public class gameCamera : MonoBehaviour {
-	public Texture btnTexture;	
+	MonoBehaviour scene;
 
 	// Use this for initialization
 	void Start () {
+		scene = gameObject.GetComponent<MonoBehaviour>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
-		//return;
 
 		//apply rotation to the "root" scene (the scene that includes the spaceship)
 		//without changing the tranform origin,
-		MonoBehaviour scene = gameObject.GetComponent<MonoBehaviour>();
 		scene.transform.localEulerAngles = new Vector3(0, 0, -playerspaceship.rotation);
 		if(xa.isPause && !xa.pausePressed){
 			TooglePause();
@@ -39,11 +38,6 @@ public class gameCamera : MonoBehaviour {
 	
 	void OnGUI() {
 		if(!xa.paused) return;
-		if (!btnTexture) {
-            Debug.LogError("Please assign a texture on the inspector");
-            return;
-        }
-		
 		if (GUI.Button (new Rect ((Screen.width/2 - 60), (Screen.height/2) + 40, 120, 30), "CONTINUE")) {
 			unPause();
 		}

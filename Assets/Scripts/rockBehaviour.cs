@@ -10,7 +10,7 @@ public class rockBehaviour : MonoBehaviour {
 	private Vector2 speed;
 	private Vector3 rotationSpeed;
 	
-	private static readonly float BORDER_LIMITS = 9.4f;
+	private static readonly float BORDER_LIMITS = Scene.BORDER_LIMITS;
 	
 	void Awake() 
 	{

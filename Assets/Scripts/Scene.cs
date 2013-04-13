@@ -22,7 +22,12 @@ public class Scene : MonoBehaviour {
 	public static int numberOfAsteroids = 0; //number on asteroids in the scene
 	public static int numberOfEnemyShips = 0;//number on enemy ships in the scene
 	
-	public static int WaveNum = 1;
+	public static int WaveNum = 1; // level number
+	
+	public static readonly float BORDER_LIMITS = 9.4f;
+	public static readonly Rect SCENE_RECT = 
+		new Rect(-BORDER_LIMITS,-BORDER_LIMITS,BORDER_LIMITS*2,BORDER_LIMITS*2);
+
 	
 	// time passed since the player won
 	public float TimeSinceWin{
@@ -47,17 +52,13 @@ public class Scene : MonoBehaviour {
 	
 	// Script initialization
 	void Start () {
-		if (lifes <= 0) {
+		if (lifes <= 0 || Winner) {
 			points = 0;
 			lifes = maxLifes;
 			GameIsOver = false;
-		}
-		if(Winner){
-			points = 0;
-			lifes = maxLifes;
 			Winner = false;
 			WaveNum = 1;	
-		} 
+		}
 		lifes--;
 		WaveNum --;
 		numberOfAsteroids = 0;
@@ -65,7 +66,7 @@ public class Scene : MonoBehaviour {
 		timeForNewEnemy = enemyAppearIntervalWave[WaveNum];
 		
 	}
-	
+	// OnGUI is called once per frame for GUI operations
 	void OnGUI() {
 		Rect labelRect = new Rect(20, 20, Screen.width, Screen.height);
 		GUI.Label(labelRect, points.ToString(), style);
@@ -118,7 +119,7 @@ public class Scene : MonoBehaviour {
 				}
 			} else {
 			for(int i=0;i< asteroidWaves[WaveNum];++i){
-				OTSprite sprite = RandomBlock(OT.view.worldRect, 0.9f, 1.8f, null,getRandomAsteroidSprite());
+				OTSprite sprite = RandomBlock(0.9f, 1.8f, null,getRandomAsteroidSprite());
 				sprite.transform.parent = this.transform;
 				numberOfAsteroids++;
 			}
@@ -132,7 +133,7 @@ public class Scene : MonoBehaviour {
 			timeForNewEnemy -= Time.deltaTime;
 			if(timeForNewEnemy < 0){
 				timeForNewEnemy += enemyAppearIntervalWave[WaveNum-1];
-				OTSprite sprite = RandomBlock(OT.view.worldRect, 1.2f, 1.8f, null,"enemy");
+				OTSprite sprite = RandomBlock(1.2f, 1.8f, null,"enemy");
 				numberOfEnemyShips ++;
 				sprite.transform.parent = this.transform;
 			}
@@ -182,8 +183,9 @@ public class Scene : MonoBehaviour {
 		return "asteroid" + (int)(1 + 3 * Random.value);;
 	}
 	
-	OTSprite RandomBlock(Rect r, float min, float max, OTObject o,string property)
+	OTSprite RandomBlock(float min, float max, OTObject o,string property)
     {
+		Rect r = SCENE_RECT;
         // Determine random size modifier (min-max)
         float size = min + Random.value * (max - min);
 		OTSprite sprite = OT.CreateSprite(property);
@@ -201,10 +203,10 @@ public class Scene : MonoBehaviour {
 				sprite.position = new Vector2(r.xMin + Random.value * r.width, r.yMin);
 				break;
 			case 1: // RIGHT
-				sprite.position = new Vector2(r.xMin + r.width, r.yMin + Random.value * r.height);
+				sprite.position = new Vector2(r.xMax, r.yMin + Random.value * r.height);
 				break;
 			case 2: // BOTTOM
-				sprite.position = new Vector2(r.xMin + Random.value * r.width, r.yMin + r.height);
+				sprite.position = new Vector2(r.xMin + Random.value * r.width, r.yMax);
 				break;
 			case 3: // LEFT
 				sprite.position = new Vector2(r.xMin, r.yMin + Random.value * r.height);
@@ -213,9 +215,6 @@ public class Scene : MonoBehaviour {
 			
             // Set sprite's random rotation
             sprite.rotation = Random.value * 360;
-            // Set sprite's name
-            /*sprite.depth = dp++;
-            if (dp > 750) dp = 100;*/
         }
         return sprite as OTSprite;
     }

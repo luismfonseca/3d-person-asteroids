@@ -9,11 +9,6 @@ public class SplashScreen : MonoBehaviour{
 	//start
 	
 	void Start(){
-        style.normal.textColor = new Color(0, 0, 0);
-        style.hover.textColor = new Color(0f, 256f, 256f);
-
-        style.font = (Font)Resources.Load("Vector Battle");
-		
 		StartCoroutine ("DisplayScene"); 
 	}
 
