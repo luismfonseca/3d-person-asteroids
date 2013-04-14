@@ -80,14 +80,6 @@ public class playerspaceship : MonoBehaviour {
 			// rotation
 			deltaRotation = xa.isLeft ? 40f *deltaTime: xa.isRight ? -40f *deltaTime: 0;
 			rotationalSpeed += deltaRotation;
-			rotation += rotationalSpeed;
-			if(rotation > 360) {
-				rotation -= 360;
-			}
-			else if(rotation < 0) {
-				rotation += 360;
-			}
-	
 			// movement
 			if (xa.isUp && !Scene.Winner) { // increase spaceship speed
 				sprite.image = texturePower;
@@ -122,6 +114,14 @@ public class playerspaceship : MonoBehaviour {
 		else if (originalPosition.y < -BORDER_LIMITS)
 			originalPosition = new Vector2(originalPosition.x, BORDER_LIMITS);
 		originalPosition += speed * deltaTime;
+		rotation += rotationalSpeed;
+			if(rotation > 360) {
+				rotation -= 360;
+			}
+			else if(rotation < 0) {
+				rotation += 360;
+			}
+		
 		//this.transform.localPosition = originalPosition;
 		this.transform.localEulerAngles = new Vector3(0,0,rotation);
 	}
