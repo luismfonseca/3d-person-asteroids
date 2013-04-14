@@ -94,10 +94,10 @@ public class Scene : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(xa.paused) {
+		if(GameControls.paused) {
 			return;
 		}
-		if (xa.isShoot && (GameIsOver || (Winner && TimeSinceWin > 1))) {
+		if (GameControls.isShoot && (GameIsOver || (Winner && TimeSinceWin > 1))) {
 			Application.LoadLevel(Application.loadedLevel);
 		}
 		
@@ -139,7 +139,7 @@ public class Scene : MonoBehaviour {
 			}
 		}
 		// player bullet shot
-		if(xa.isShoot && !xa.shooting && !playerspaceship.isDead()){
+		if(GameControls.isShoot && !GameControls.shooting && !playerspaceship.isDead()){
 			OTSprite bullet = OT.CreateSprite("bullet");
 			bullet.transform.parent = transform;
 			bullet.transform.localPosition = playerspaceship.originalPosition;

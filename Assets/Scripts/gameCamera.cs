@@ -16,28 +16,28 @@ public class gameCamera : MonoBehaviour {
 		//apply rotation to the "root" scene (the scene that includes the spaceship)
 		//without changing the tranform origin,
 		scene.transform.localEulerAngles = new Vector3(0, 0, -playerspaceship.rotation);
-		if(xa.isPause && !xa.pausePressed){
+		if(GameControls.isPause && !GameControls.pausePressed){
 			TooglePause();
 		}
 	}
 	
 	public static void unPause(){
-		xa.paused = false;
+		GameControls.paused = false;
 		Time.timeScale = 1f;
 	}
 	
 	public static void pause(){
-		xa.paused = false;
+		GameControls.paused = false;
 		Time.timeScale = 1f;
 	}
 	
 	public static void TooglePause(){
-		xa.paused = !xa.paused;
-		Time.timeScale = (xa.paused) ? 0f : 1f;
+		GameControls.paused = !GameControls.paused;
+		Time.timeScale = (GameControls.paused) ? 0f : 1f;
 	}
 	
 	void OnGUI() {
-		if(!xa.paused) return;
+		if(!GameControls.paused) return;
 		if (GUI.Button (new Rect ((Screen.width/2 - 60), (Screen.height/2) + 40, 120, 30), "CONTINUE")) {
 			unPause();
 		}

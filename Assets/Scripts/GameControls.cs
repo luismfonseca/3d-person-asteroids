@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class xa : MonoBehaviour {
+public class GameControls : MonoBehaviour {
 
 	public static bool isLeft;
 	public static bool isRight;

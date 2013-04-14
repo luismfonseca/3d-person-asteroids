@@ -72,7 +72,7 @@ public class playerspaceship : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
-		if (xa.paused)
+		if (GameControls.paused)
 		{
 			return;
 		}
@@ -81,10 +81,10 @@ public class playerspaceship : MonoBehaviour {
 		if (!isDead()) // still alive?
 		{
 			// rotation
-			deltaRotation = xa.isLeft ? 40f *deltaTime: xa.isRight ? -40f *deltaTime: 0;
+			deltaRotation = GameControls.isLeft ? 40f *deltaTime: GameControls.isRight ? -40f *deltaTime: 0;
 			rotationalSpeed += deltaRotation;
 			// movement
-			if (xa.isUp && !Scene.Winner) { // increase spaceship speed
+			if (GameControls.isUp && !Scene.Winner) { // increase spaceship speed
 				sprite.image = texturePower;
 				speed.x += 11f * Mathf.Cos((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
 				speed.y += 11f * Mathf.Sin((Mathf.PI / 180) * (rotation + 90)) * deltaTime;

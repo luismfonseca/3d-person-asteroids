@@ -33,7 +33,7 @@ public class EnemyBullet : MonoBehaviour{
 	
 	// Update is called once per frame
 	void Update () {
-		if(xa.paused){ return;}
+		if(GameControls.paused){ return;}
 		if(lifeTime >= bulletLifeTime){
 			movedirection = sprite.yVector;
 			sprite.rotation -= playerspaceship.rotation;

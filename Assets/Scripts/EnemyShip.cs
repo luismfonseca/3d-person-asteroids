@@ -24,7 +24,7 @@ public class EnemyShip : MonoBehaviour{
 	
 	// Update is called once per frame
 	void Update () {
-		if(xa.paused){ return;}
+		if(GameControls.paused){ return;}
 		float deltaTime = Time.deltaTime;
 		reloadTime -= deltaTime;
 		if(reloadTime < 0){
