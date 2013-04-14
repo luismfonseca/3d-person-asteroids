@@ -21,6 +21,15 @@ public class Prologue : MonoBehaviour {
 	}
 	
 	void Update () {
+		
+		// skip prologue
+		if (Input.GetKey(KeyCode.Space)
+		 || Input.GetKey(KeyCode.Escape)
+		 || Input.GetKey(KeyCode.KeypadEnter)
+		 || Input.GetKey(KeyCode.F2)) {
+		
+			Application.LoadLevel("start");
+		}
 	}
 	
 	void OnGUI() {

@@ -1,16 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Prologue.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prologue.cs">
     <Files>
-      <File FileName="Assets\Scripts\SplashScreen.cs" Line="17" Column="3" />
+      <File FileName="Assets\Scripts\Prologue.cs" Line="29" Column="30" />
+      <File FileName="Assets\Scripts\Scene.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SplashScreen.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CStart.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\EnemyShip.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Bullet.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\rockBehaviour.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameControls.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SceneSoundManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Scene.cs" Line="1" Column="1" />
-      <File FileName="Assets\Prologue.cs" Line="16" Column="3" />
+      <File FileName="Assets\Scripts\playerspaceship.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
