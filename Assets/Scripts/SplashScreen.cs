@@ -6,16 +6,14 @@ public class SplashScreen : MonoBehaviour{
 	public string levelToLoad = "start";
 
 	public GUIStyle style = new GUIStyle();
-	//start
 	
-	void Start(){
-		StartCoroutine ("DisplayScene"); 
+	void Start() {
+		StartCoroutine("DisplayScene"); 
 	}
 
 	IEnumerator DisplayScene() {
-		 yield return new WaitForSeconds(timer);
+		yield return new WaitForSeconds(timer);
 		Application.LoadLevel(levelToLoad);
-
 	}
 	
 	void OnGUI(){
@@ -30,10 +28,9 @@ public class SplashScreen : MonoBehaviour{
 Luis Miguel Guimaraes Pimentel Fonseca
 Witold Zgrabka
 
-presents:";
+present:";
 		
 		GUI.Label(labelRect,text,style);
-		
 	}
 	
 	
