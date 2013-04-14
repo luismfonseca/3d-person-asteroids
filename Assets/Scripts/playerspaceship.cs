@@ -52,8 +52,11 @@ public class playerspaceship : MonoBehaviour {
 			return;
 		}
 		
-		// play explosion sound
+		// play explosion sound and create explosion sprite
 		audio.Play();
+		OTSprite explosion = OT.CreateSprite("explosion");
+		explosion.transform.parent = sprite.transform.parent;
+		explosion.position = sprite.transform.localPosition;
 		
 		if (other.name.StartsWith("enemyBullet") || other.name.StartsWith("enemyShip")) {
 			Destroy(other.GetComponent<MonoBehaviour>());
