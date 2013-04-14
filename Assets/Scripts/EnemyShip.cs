@@ -14,7 +14,6 @@ public class EnemyShip : MonoBehaviour{
 	{
 	}
 	
-	
 	// Use this for initialization
 	void Start () {
 		sprite = GetComponent<OTSprite>();

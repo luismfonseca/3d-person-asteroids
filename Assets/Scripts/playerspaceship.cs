@@ -7,6 +7,7 @@ public class playerspaceship : MonoBehaviour {
 	public static float rotationalSpeed;
 	public static OTSprite sprite;
 	
+	public AudioClip explosionSound;
 	public static Texture textureNormal = null;
 	public static Texture texturePower = null;
 	
@@ -43,26 +44,25 @@ public class playerspaceship : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if (isDead())
+		if (isDead()) {
 			return;
-		
-		if (other.name.StartsWith("bullet")) // our bullets dont do nothing
-			return;
-		
-		else if (other.name.StartsWith("enemyBullet"))
-		{
-			Destroy(other.GetComponent<MonoBehaviour>());
 		}
-		else if (other.name.StartsWith("enemyShip"))
-		{
+		
+		if (other.name.StartsWith("bullet")) { // our bullets dont do nothing
+			return;
+		}
+		
+		// play explosion sound
+		audio.Play();
+		
+		if (other.name.StartsWith("enemyBullet") || other.name.StartsWith("enemyShip")) {
 			Destroy(other.GetComponent<MonoBehaviour>());
 		}
 		
 		sprite.visible = false;
 		deadSince = Time.timeSinceLevelLoad;
 		
-		if (other.name.StartsWith("asteroid"))
-		{
+		if (other.name.StartsWith("asteroid")) {
 			Scene.SplitAsteroids(other.gameObject.GetComponent<OTSprite>());
 		}
 	}

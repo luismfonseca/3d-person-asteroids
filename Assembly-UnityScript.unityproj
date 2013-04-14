@@ -58,8 +58,6 @@
      <Compile Include="Assets\Orthello\Examples\7 - Tweening\JSExample7.js" />
      <Compile Include="Assets\Orthello\Examples\7 - Tweening\JSStar7_1.js" />
      <Compile Include="Assets\Orthello\Examples\7 - Tweening\JSStar7_2.js" />
-     <Compile Include="Assets\Scripts\Start.js" />
-     <Compile Include="Assets\Scripts\TitleGUI.js" />
      <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\lorem.txt" />
      <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\Atlases\russian.txt" />
      <None Include="Assets\iTween\ReadMe!\ReadMe!.txt" />

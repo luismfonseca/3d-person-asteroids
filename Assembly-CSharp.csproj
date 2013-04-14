@@ -149,14 +149,10 @@
     <Compile Include="Assets\SceneSoundManager.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\CStart.cs" />
-    <Compile Include="Assets\Scripts\EndGame.cs" />
     <Compile Include="Assets\Scripts\EnemyBullet.cs" />
     <Compile Include="Assets\Scripts\EnemyShip.cs" />
-    <Compile Include="Assets\Scripts\Explosion.cs" />
-    <Compile Include="Assets\Scripts\PlayerAnims.cs" />
     <Compile Include="Assets\Scripts\Scene.cs" />
     <Compile Include="Assets\Scripts\SplashScreen.cs" />
-    <Compile Include="Assets\Scripts\Start_screen.cs" />
     <Compile Include="Assets\Scripts\gameCamera.cs" />
     <Compile Include="Assets\Scripts\playerspaceship.cs" />
     <Compile Include="Assets\Scripts\rockBehaviour.cs" />
