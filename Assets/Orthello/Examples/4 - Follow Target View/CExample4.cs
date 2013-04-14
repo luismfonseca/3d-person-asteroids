@@ -34,7 +34,7 @@ public class CExample4 : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             OTSprite s = OT.CreateSprite("mover");
-            CMover4 mov = s.GetComponent<CMover4>();
+            //CMover4 mov = s.GetComponent<CMover4>();
             // hook up onInput delegate to handle clicking on a mover
             s.onInput = OnInput;
         }
