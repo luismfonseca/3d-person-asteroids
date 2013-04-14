@@ -38,8 +38,8 @@ public class Scene : MonoBehaviour {
 		get{return 1+(0.05f*WaveNum);}	
 	}
 	// adds points to the game, the points added depends
-	public static void AddPoints(int points){
-		Scene.points += Mathf.RoundToInt(points *(1+0.1f*WaveNum)); 
+	public static void AddPoints(int points) {
+		Scene.points += points;
 	}
 	
 	private int[] asteroidWaves = {3, 5, 7, 10}; //number of asteroids per Wave 
