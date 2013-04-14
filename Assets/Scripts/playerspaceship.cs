@@ -72,22 +72,23 @@ public class playerspaceship : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
-		if (GameControls	.paused)
-		{
+		if (GameControls.paused) {
 			return;
 		}
-		float deltaTime = Time.deltaTime;
 		
-		if (!isDead()) // still alive?
+		if (!isDead()) // if still alive
 		{
 			// rotation
-			deltaRotation = GameControls.isLeft ? 40f *deltaTime: GameControls.isRight ? -40f *deltaTime: 0;
-			rotationalSpeed += deltaRotation;
+			if (!Scene.Winner) {
+				deltaRotation = GameControls.isLeft ? 40f * Time.deltaTime : GameControls.isRight ? -40f * Time.deltaTime: 0;
+				rotationalSpeed += deltaRotation;
+			}
+			
 			// movement
 			if (GameControls.isUp && !Scene.Winner) { // increase spaceship speed
 				sprite.image = texturePower;
-				speed.x += 11f * Mathf.Cos((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
-				speed.y += 11f * Mathf.Sin((Mathf.PI / 180) * (rotation + 90)) * deltaTime;
+				speed.x += 11f * Mathf.Cos((Mathf.PI / 180) * (rotation + 90)) * Time.deltaTime;
+				speed.y += 11f * Mathf.Sin((Mathf.PI / 180) * (rotation + 90)) * Time.deltaTime;
 			}
 			else {
 				sprite.image = textureNormal;
@@ -104,7 +105,6 @@ public class playerspaceship : MonoBehaviour {
 		}
 		
 		rotationalSpeed *= .85f;
-		
 		speed.x *= .98f;
 		speed.y *= .98f;
 
@@ -116,14 +116,14 @@ public class playerspaceship : MonoBehaviour {
 			originalPosition = new Vector2(originalPosition.x, -BORDER_LIMITS);
 		else if (originalPosition.y < -BORDER_LIMITS)
 			originalPosition = new Vector2(originalPosition.x, BORDER_LIMITS);
-		originalPosition += speed * deltaTime;
+		originalPosition += speed * Time.deltaTime;
 		rotation += rotationalSpeed;
-			if(rotation > 360) {
-				rotation -= 360;
-			}
-			else if(rotation < 0) {
-				rotation += 360;
-			}
+		if(rotation > 360) {
+			rotation -= 360;
+		}
+		else if(rotation < 0) {
+			rotation += 360;
+		}
 		
 		//this.transform.localPosition = originalPosition;
 		this.transform.localEulerAngles = new Vector3(0,0,rotation);
