@@ -23,10 +23,11 @@ public class rockBehaviour : MonoBehaviour {
 			return;
 		
 		if (other.name.StartsWith("spaceship")) {
-			if (playerspaceship.isDead())
+			if (playerspaceship.isDead()) {
 				return;
+			}
 		}
-		
+		SceneSoundManager.PlayClipAt(audio.clip, transform.position);
 		Scene.SplitAsteroids(this.GetComponent<OTSprite>());
 	}
 	

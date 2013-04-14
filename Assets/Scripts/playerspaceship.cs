@@ -72,7 +72,7 @@ public class playerspaceship : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
-		if (GameControls.paused)
+		if (GameControls	.paused)
 		{
 			return;
 		}

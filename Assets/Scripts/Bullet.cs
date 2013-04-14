@@ -34,7 +34,10 @@ public class Bullet : MonoBehaviour{
 	
 	// Update is called once per frame
 	void Update () {
-		if(xa.paused){ return;}
+		if (GameControls.paused) {
+			return;
+		}
+		
 		float deltaTime = Time.deltaTime;
 		lifeTime -= deltaTime;
 		if(lifeTime < 0){
