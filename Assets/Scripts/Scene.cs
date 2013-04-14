@@ -5,12 +5,12 @@ using System.Collections;
 /// Scene Class, it contains all the objects expect the spaceship.
 /// </summary>
 public class Scene : MonoBehaviour {
-	public static int lifes = 3;             //current number of lifes
-	public static readonly int maxLifes = 3; //maximum number of lifes
+	public static int lifes = 3;             // current number of lifes
+	public static readonly int maxLifes = 3; // maximum number of lifes
 
-	public static int points;              //game score
-	public static bool GameIsOver = false; //true means the player lost the game
-	public static bool Winner = false;     //true means the player won the game
+	public static int points;              // game score
+	public static bool GameIsOver = false; // true means the player lost the game
+	public static bool Winner = false;     // true means the player won the game
 	
 	// timestamp to show when the user won the game, 
 	// usefull to lock the user input when he won the game
@@ -19,8 +19,8 @@ public class Scene : MonoBehaviour {
 	public float WinTimeStamp = 0;             
 	public static float WinInputLockTime = 3f;
 
-	public static int numberOfAsteroids = 0; //number on asteroids in the scene
-	public static int numberOfEnemyShips = 0;//number on enemy ships in the scene
+	public static int numberOfAsteroids = 0; // number on asteroids in the scene
+	public static int numberOfEnemyShips = 0;// number on enemy ships in the scene
 	
 	public static int WaveNum = 1; // level number
 	
@@ -50,6 +50,8 @@ public class Scene : MonoBehaviour {
 	public GUIStyle style = new GUIStyle();
 	public GUIStyle styleGameOver = new GUIStyle();
 	
+	public AudioClip victorySound;
+	
 	// Script initialization
 	void Start () {
 		if (lifes <= 0 || Winner) {
@@ -60,7 +62,7 @@ public class Scene : MonoBehaviour {
 			WaveNum = 1;	
 		}
 		lifes--;
-		WaveNum --;
+		WaveNum--;
 		numberOfAsteroids = 0;
 		numberOfEnemyShips = 0;
 		timeForNewEnemy = enemyAppearIntervalWave[WaveNum];
@@ -71,12 +73,6 @@ public class Scene : MonoBehaviour {
 		Rect labelRect = new Rect(20, 20, Screen.width, Screen.height);
 		GUI.Label(labelRect, points.ToString(), style);
 		
-		for (int i = 0; i <= lifes; ++i) {
-			Rect lifePosition = new Rect(18 + 36 * i, 60, 30, 30);
-			if(playerspaceship.textureNormal != null){
-				GUI.DrawTexture(lifePosition, playerspaceship.textureNormal);
-			}
-		}
 		
 		labelRect.Set(20, 100, Screen.width, Screen.height);
 		GUI.Label(labelRect, "Level: "+WaveNum, style);
@@ -84,6 +80,15 @@ public class Scene : MonoBehaviour {
 		if (GameIsOver) {
 			Rect label = new Rect(Screen.width / 2 - 140, Screen.height / 2, Screen.width, Screen.height);
 			GUI.Label(label, "GAME OVER", styleGameOver);
+		}
+		else { // draw lifes
+			
+			for (int i = 0; i <= lifes; ++i) {
+				Rect lifePosition = new Rect(18 + 36 * i, 60, 30, 30);
+				if(playerspaceship.textureNormal != null){
+					GUI.DrawTexture(lifePosition, playerspaceship.textureNormal);
+				}
+			}
 		}
 		
 		if (Winner) {
@@ -94,9 +99,10 @@ public class Scene : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(GameControls.paused) {
+		if (GameControls.paused) {
 			return;
 		}
+		
 		if (GameControls.isShoot && (GameIsOver || (Winner && TimeSinceWin > 1))) {
 			Application.LoadLevel(Application.loadedLevel);
 		}
@@ -105,26 +111,28 @@ public class Scene : MonoBehaviour {
 		//the rotation should be done on the "root" scene (in game Camera)
 		//because the origin position changes
 		this.transform.localPosition = -playerspaceship.originalPosition;
-		if(GameIsOver || Winner) return;
-
-		
+		if (GameIsOver || Winner) {
+			return;
+		}
 
 		//creates ateroids if its theres not enought sprites
 		if(numberOfAsteroids < 1){
 			
 			if(WaveNum  == asteroidWaves.Length){
 				if(numberOfEnemyShips < 1){
-					Winner= true;
+					Winner = true;
 					WinTimeStamp = Time.timeSinceLevelLoad;
+					SceneSoundManager.PlayClipAt(victorySound, Vector3.zero);
 				}
 			} else {
-			for(int i=0;i< asteroidWaves[WaveNum];++i){
-				OTSprite sprite = RandomBlock(0.9f, 1.8f, null,getRandomAsteroidSprite());
-				sprite.transform.parent = this.transform;
-				numberOfAsteroids++;
-			}
-			
-			WaveNum++;
+				for(int i = 0; i < asteroidWaves[WaveNum]; ++i){
+					OTSprite sprite = RandomBlock(0.9f, 1.8f, null,getRandomAsteroidSprite());
+					sprite.transform.parent = this.transform;
+					numberOfAsteroids++;
+				}
+				
+				SceneSoundManager.PlayClipAt(victorySound, Vector3.zero);
+				WaveNum++;
 			}
 		}
 		

@@ -6,7 +6,6 @@ public class SceneSoundManager : MonoBehaviour {
 	public static int currentLevelSound = 1;
 	private static AudioClip[] levelBackgroundSounds;
 	
-	// Use this for initialization
 	void Start() {
 		levelBackgroundSounds = new AudioClip[4];
 		for (int i = 0; i < levelBackgroundSounds.Length; i++) {
@@ -14,7 +13,6 @@ public class SceneSoundManager : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if (currentLevelSound != Scene.WaveNum) {
 			if (Scene.WaveNum == 0) {
